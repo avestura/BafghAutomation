@@ -1,0 +1,59 @@
+﻿<Page x:Class="Dashboard.UI.Pages.AddItemCodePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Dashboard.UI.Pages"
+      mc:Ignorable="d" Background="White" FontFamily="Segoe UI Light, Segoe UI"
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="AddItemCodePage">
+
+    <Grid Height="300" Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="5" />
+            <RowDefinition />
+            <RowDefinition Height="5" />
+            <RowDefinition />
+            <RowDefinition Height="5" />
+            <RowDefinition />
+            <RowDefinition Height="5" />
+            <RowDefinition />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <fa:ImageAwesome Icon="PlusCircle" Height="30" Grid.Row="0" Grid.Column="0" />
+        <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" >
+            <TextBlock Margin="10 0" FontSize="25">Add new Item Code</TextBlock>
+        </StackPanel>
+        <Border Height="2" Background="#FFA0A0A0" Grid.Row="1" Grid.ColumnSpan="3" />
+
+        <fa:ImageAwesome Icon="Edit" Height="25" Grid.Column="0" Grid.Row="2" />
+        <TextBlock VerticalAlignment="Center" Margin="10 0" FontSize="20" Grid.Column="1" Grid.Row="2">Item Code:</TextBlock>
+        <TextBox x:Name="ItemCodeTextUI" TextChanged="ItemCodeTextUI_TextChanged" VerticalContentAlignment="Center" FontSize="20" Grid.Column="2" Grid.Row="2" Height="40"></TextBox>
+
+        <fa:ImageAwesome Icon="DotCircleOutline" Height="25" Grid.Column="0" Grid.Row="4" />
+        <TextBlock VerticalAlignment="Center" Margin="10 0" FontSize="20" Grid.Column="1" Grid.Row="4">Diameter:</TextBlock>
+        <TextBox x:Name="DiaTextUI" VerticalContentAlignment="Center" FontSize="20" Grid.Column="2" Grid.Row="4" Height="40"></TextBox>
+
+        <fa:ImageAwesome Icon="ArrowsH" Width="25" Height="25" Grid.Column="0" Grid.Row="6" />
+        <TextBlock VerticalAlignment="Center" Margin="10 0" FontSize="20" Grid.Column="1" Grid.Row="6">Length:</TextBlock>
+        <TextBox x:Name="LenTextUI" VerticalContentAlignment="Center" FontSize="20" Grid.Column="2" Grid.Row="6" Height="40"></TextBox>
+
+        <fa:ImageAwesome Icon="Cogs" Height="25" Grid.Column="0" Grid.Row="8" />
+        <TextBlock VerticalAlignment="Center" Margin="10 0" FontSize="20" Grid.Column="1" Grid.Row="8">Grade:</TextBlock>
+        <TextBox x:Name="GradeTextUI" VerticalContentAlignment="Center" FontSize="20" Grid.Column="2" Grid.Row="8" Height="40"></TextBox>
+
+        <Button x:Name="AddButton" Click="AddButton_Click" BorderThickness="0 0 0 2" Grid.Column="2" Height="35" Width="120" Grid.Row="10" HorizontalAlignment="Right">
+            <TextBlock FontSize="18" x:Name="AddButtonText">Cancel</TextBlock>
+        </Button>
+        
+    </Grid>
+</Page>

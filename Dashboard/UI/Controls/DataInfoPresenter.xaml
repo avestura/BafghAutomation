@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="Dashboard.UI.Controls.DataInfoPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:Dashboard.UI.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="control" d:DesignHeight="40" d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="control"
+                                     Storyboard.TargetProperty="Opacity" From="0" To="1"
+                                     Duration="0:0:0.3" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type UserControl}">
+            <Border BorderThickness="3,0,0,0">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="ErrorSending">
+                                <Setter Property="Background" Value="#FFFFE3E3" />
+                                <Setter Property="BorderBrush" Value="#FFFF3C3C" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="FileSent">
+                                <Setter Property="Background" Value="#FFD8FFDE" />
+                                <Setter Property="BorderBrush" Value="#FF00B135" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="FileSending">
+                                <Setter Property="Background" Value="#FFFCFFD8" />
+                                <Setter Property="BorderBrush" Value="#FFAAB100" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="Info">
+                                <Setter Property="Background" Value="#FFC5EFFF" />
+                                <Setter Property="BorderBrush" Value="#FF007BB1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid Margin="5,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter Grid.Column="0"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="Gray"
+                               Text="{Binding DataDetails, ElementName=control}" />
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <fa:ImageAwesome x:Name="SendingIndicator" Grid.Row="1" Grid.Column="1"
+                                         Margin="10,0" Icon="CircleOutlineNotch" Spin="True">
+                            <fa:ImageAwesome.Style>
+                                <Style TargetType="{x:Type fa:ImageAwesome}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="ErrorSending">
+                                            <Setter Property="Foreground" Value="#FFFF3C3C" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="FileSent">
+                                            <Setter Property="Foreground" Value="#FF00B135" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="FileSending">
+                                            <Setter Property="Foreground" Value="#FFAAB100" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=DataInfoStatus, ElementName=control}" Value="Info">
+                                            <Setter Property="Foreground" Value="#FF007BB1" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Waiting, ElementName=control}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Waiting, ElementName=control}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </fa:ImageAwesome.Style>
+                        </fa:ImageAwesome>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

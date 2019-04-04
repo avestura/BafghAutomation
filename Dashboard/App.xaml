@@ -1,0 +1,24 @@
+﻿<Application x:Class="Dashboard.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Dashboard"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException"
+             Exit="Application_Exit"
+             LoadCompleted="Application_LoadCompleted"
+             SessionEnding="Application_SessionEnding"
+             Startup="Application_Startup" StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--  Global Taskbar Icon  -->
+                <ResourceDictionary Source="pack://application:,,,/Dashboard;component/UI/NotifyIcon/NotifyIconHolder.xaml" />
+
+                <!--  Templates  -->
+                <ResourceDictionary Source="pack://application:,,,/Dashboard;component/UI/Templates/CloseButtonTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Dashboard;component/UI/Templates/GeneralStyles.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
