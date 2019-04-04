@@ -1,4 +1,5 @@
-﻿using Dashboard.UI.Controls;
+﻿using BafghAutomation.Engine.Models;
+using Dashboard.UI.Controls;
 using Microsoft.Windows.Controls;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Dashboard.DataBase
 {
     public static class DataBaseHelper
     {
-        public static LocalHistoryEntities Entities { get; set; } = new LocalHistoryEntities();
+        public static AppDataContext Entities { get; set; } = new AppDataContext();
 
         public static void AddSentItemToDataBase(
             string content,
@@ -24,16 +25,16 @@ namespace Dashboard.DataBase
             string minute,
             string second)
         {
-            Entities.SentItems.Add(new SentItems()
-            {
-                Content = content,
-                Year = year,
-                Month = month,
-                Day = day,
-                Hour = hour,
-                Minute = minute,
-                Second = second
-            });
+            Entities.SentItems.Add(new SentItem(
+                id: 0,
+                second: second,
+                minute: minute,
+                hour: hour,
+                day: day,
+                month: month,
+                year: year,
+                content: content
+                ));
             Entities.SaveChanges();
         }
 
@@ -102,7 +103,9 @@ namespace Dashboard.DataBase
         {
             var result = new ObservableCollection<PackView>();
 
-            string dateToFind = $"{year}{month}{day}";
+            string dateToFind = year + month + day;
+
+            var x = Entities.Packs.ToList();
 
             var extractedData = from e in Entities.Packs where ( e.Date == dateToFind ) select e;
 
@@ -110,7 +113,7 @@ namespace Dashboard.DataBase
             {
                 try
                 {
-                    var itemCodeInfo = (from ic in Entities.ItemCodes where ( ic.ItemCode == item.ItemCode ) select ic).First();
+                    var itemCodeInfo = (from ic in Entities.Goods where ( ic.ItemCode == item.ItemCode ) select ic).First();
 
                     string itemHour = "";
                     string itemMin = "";
@@ -128,7 +131,7 @@ namespace Dashboard.DataBase
                         ItemCode: item.ItemCode,
                         Length: itemCodeInfo.Length + " meter",
                         Diameter: itemCodeInfo.Diameter,
-                        Grade: itemCodeInfo.SignID)
+                        Grade: itemCodeInfo.SignId)
                     {
                         Margin = new Thickness(10,10,10,5)
                     }

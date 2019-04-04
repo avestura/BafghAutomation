@@ -24,14 +24,14 @@ namespace Dashboard
         {
             Uri imageAddr = null;
 
-            if (App.GetApp().AppConfiguration.PrintBackgroundImageAddress?.Length == 0)
+            if (App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress?.Length == 0)
             {
                 imageAddr = new Uri("pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png", UriKind.Absolute);
             } else
             {
                 try
                 {
-                    imageAddr = new Uri(App.GetApp().AppConfiguration.PrintBackgroundImageAddress, UriKind.Absolute);
+                    imageAddr = new Uri(App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress, UriKind.Absolute);
                 } catch
                 {
                     imageAddr = new Uri("pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png", UriKind.Absolute);

@@ -159,7 +159,7 @@ namespace Dashboard.UI.Controls
             var postData = new Dictionary<string, string>()
             {
                 { "data", '{' + $"\"datas\":[\"{Content.ToString().Replace(" kg", "")},{date},{time}\"]" + '}' },
-                { "machine" , App.GetApp().AppConfiguration.AliasName }
+                { "machine" , App.CurrentApp.AppConfiguration.AliasName }
             };
 
             var content = new FormUrlEncodedContent(postData);

@@ -493,7 +493,7 @@
                                 Header="Length" />
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding SignID}"
+                                Binding="{Binding SignId}"
                                 Header="Grade" />
                         </DataGrid.Columns>
                     </DataGrid>
