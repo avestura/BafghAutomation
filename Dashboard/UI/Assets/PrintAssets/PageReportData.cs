@@ -17,7 +17,7 @@ namespace Dashboard
         private string dia;
         private string barcodeData;
         private Uri imageSource;
-        private readonly double scaleFactor = App.GetApp().AppConfiguration.ScaleFactor;
+        private readonly double scaleFactor = App.CurrentApp.AppConfiguration.ScaleFactor;
 
         public string BarCodeData
         {

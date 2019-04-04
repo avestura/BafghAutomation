@@ -7,6 +7,9 @@ using System.IO.Ports;
 using System.Threading;
 using System.Net.Http;
 
+// IMPORTANT ============================
+// TODO: Change those threads with Async/Await pattern (Legacy Code)
+// IMPORTANT ============================
 namespace Dashboard.IO
 {
     /**

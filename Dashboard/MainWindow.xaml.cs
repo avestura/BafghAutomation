@@ -1,24 +1,14 @@
 ﻿using Dashboard.DataBase;
-using Dashboard.IO;
+using Dashboard.Helpers;
 using Dashboard.UI.Controls;
-using Dashboard.UI.Pages;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Dashboard
 {
@@ -29,19 +19,13 @@ namespace Dashboard
     {
         public MainWindow()
         {
-            App.GetApp().AppWindow = this;
+            App.CurrentApp.AppWindow = this;
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Overlay.Visibility = Visibility.Collapsed;
-        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) => Overlay.Visibility = Visibility.Collapsed;
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            App.TryClosingPort();
-        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) => App.TryClosingPorts();
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
@@ -66,26 +50,20 @@ namespace Dashboard
                 DataBaseHelper.Entities.Database.ExecuteSqlCommand("DELETE FROM [SentItems]");
                 DataBaseHelper.Entities.Database.ExecuteSqlCommand("DELETE FROM [Packs]");
 
-                App.GetApp().MainPage.SentInfoPresenters.Clear();
-                App.GetApp().MainPage.PackPresenters.Clear();
-                App.GetApp().MainPage.PackViewRefreshRequest();
+                App.CurrentApp.MainPage.SentInfoPresenters.Clear();
+                App.CurrentApp.MainPage.PackPresenters.Clear();
+                App.CurrentApp.MainPage.PackViewRefreshRequest();
 
                 ClearHistoryButton.Tag = "";
                 ClearHistoryButtonMessage.Text = "Clear all history data for this instance of application";
             }
         }
 
-        private void SensitiveSetting_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            SensitiveData_Changeded();
-        }
+        private void SensitiveSetting_TextChanged(object sender, TextChangedEventArgs e) => SensitiveData_Changed();
 
-        private void SensitiveComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SensitiveData_Changeded();
-        }
+        private void SensitiveComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => SensitiveData_Changed();
 
-        private void SensitiveData_Changeded()
+        private void SensitiveData_Changed()
         {
             if (IsLoaded)
             {
@@ -152,31 +130,31 @@ namespace Dashboard
 
             try
             {
-                App.GetApp().AppConfiguration.COMPortName =
-                    ( App.GetApp().AppConfiguration.COMPortName.Trim() != string.Empty ) ? ComPortTextBox.Text : "No Name";
+                App.CurrentApp.AppConfiguration.COMPortName =
+                    ( App.CurrentApp.AppConfiguration.COMPortName.Trim() != string.Empty ) ? ComPortTextBox.Text : "No Name";
 
-                App.GetApp().AppConfiguration.BaudRate = int.Parse(BaudRateComboBox.Text);
-                App.GetApp().AppConfiguration.ParityType = (Parity)ParityComboBox.SelectedIndex;
-                App.GetApp().AppConfiguration.DataBits = int.Parse(DatabitsTextbox.Text);
-                App.GetApp().AppConfiguration.StopBits = (StopBits)StopbitsCombobox.SelectedIndex;
+                App.CurrentApp.AppConfiguration.BaudRate = int.Parse(BaudRateComboBox.Text);
+                App.CurrentApp.AppConfiguration.ParityType = (Parity)ParityComboBox.SelectedIndex;
+                App.CurrentApp.AppConfiguration.DataBits = int.Parse(DatabitsTextbox.Text);
+                App.CurrentApp.AppConfiguration.StopBits = (StopBits)StopbitsCombobox.SelectedIndex;
 
-                App.GetApp().AppConfiguration.AliasName = AliasTextBox.Text;
-                App.GetApp().AppConfiguration.StabilityTime = stableDelay;
-                App.GetApp().AppConfiguration.RepetitiveDelayTime = repetitiveDelay;
+                App.CurrentApp.AppConfiguration.AliasName = AliasTextBox.Text;
+                App.CurrentApp.AppConfiguration.StabilityTime = stableDelay;
+                App.CurrentApp.AppConfiguration.RepetitiveDelayTime = repetitiveDelay;
 
-                App.GetApp().AppConfiguration.LastWeightFileAddress = LastWeightAddressTextbox.Text;
-                App.GetApp().AppConfiguration.PackDetailsFileAddress = PackAddressTextbox.Text;
-                App.GetApp().AppConfiguration.PrintStdNo = PrintStdNoTextbox.Text;
-                App.GetApp().AppConfiguration.PrintProProcedure = PrintProcedureTextbox.Text;
-                App.GetApp().AppConfiguration.PrintBackgroundImageAddress = BackgroundImageUriTextbox.Text;
+                App.CurrentApp.AppConfiguration.LastWeightFileAddress = LastWeightAddressTextbox.Text;
+                App.CurrentApp.AppConfiguration.PackDetailsFileAddress = PackAddressTextbox.Text;
+                App.CurrentApp.AppConfiguration.PrintStdNo = PrintStdNoTextbox.Text;
+                App.CurrentApp.AppConfiguration.PrintProProcedure = PrintProcedureTextbox.Text;
+                App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress = BackgroundImageUriTextbox.Text;
 
                 bool valid = double.TryParse(PrintSizeScaleFactorTextbox.Text, out double tempScale);
-                App.GetApp().AppConfiguration.ScaleFactor = (!valid || tempScale > 1000 || tempScale < 0.001) ? 1 : tempScale;
-                PrintSizeScaleFactorTextbox.Text = App.GetApp().AppConfiguration.ScaleFactor.ToString();
+                App.CurrentApp.AppConfiguration.ScaleFactor = (!valid || tempScale > 1000 || tempScale < 0.001) ? 1 : tempScale;
+                PrintSizeScaleFactorTextbox.Text = App.CurrentApp.AppConfiguration.ScaleFactor.ToString();
 
-                App.GetApp().AppConfiguration.EndTrimLength = ushort.Parse(LengthEndTrimTextBox.Text);
+                App.CurrentApp.AppConfiguration.EndTrimLength = ushort.Parse(LengthEndTrimTextBox.Text);
 
-                App.GetApp().AppConfiguration.SaveSettingsToFile();
+                App.CurrentApp.AppConfiguration.SaveSettingsToFile();
 
                 SettingsAlert.Content = "Settings file successfully saved and program behavior updated";
                 SettingsAlert.AlertType = Alert.AlertTypes.Success;
@@ -204,7 +182,7 @@ namespace Dashboard
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
 
-                App.TryClosingPort();
+                App.TryClosingPorts();
                 await Task.Delay(100);
                 Application.Current.Shutdown();
             }
@@ -218,7 +196,7 @@ namespace Dashboard
             {
                 settingClosedClickedOnce = true;
 
-                App.GetApp().AppConfiguration.SaveSettingsToFile();
+                App.CurrentApp.AppConfiguration.SaveSettingsToFile();
 
                 await Overlay.HideUsingLinearAnimationAsync(250);
                 settingClosedClickedOnce = false;
@@ -233,26 +211,26 @@ namespace Dashboard
             if (!settingOpenedClickedOnce)
             {
                 Config.LoadSettingsFromFile();
-                AliasTextBox.Text = App.GetApp().AppConfiguration.AliasName;
+                AliasTextBox.Text = App.CurrentApp.AppConfiguration.AliasName;
 
-                StableDelayTextbox.Text = App.GetApp().AppConfiguration.StabilityTime.ToString();
-                RepetitiveDelayTextBox.Text = App.GetApp().AppConfiguration.RepetitiveDelayTime.ToString();
+                StableDelayTextbox.Text = App.CurrentApp.AppConfiguration.StabilityTime.ToString();
+                RepetitiveDelayTextBox.Text = App.CurrentApp.AppConfiguration.RepetitiveDelayTime.ToString();
 
-                ComPortTextBox.Text = App.GetApp().AppConfiguration.COMPortName;
-                BaudRateComboBox.SelectedIndex = ConvertBaudrateToIndex(App.GetApp().AppConfiguration.BaudRate);
-                ParityComboBox.SelectedIndex = (int)App.GetApp().AppConfiguration.ParityType;
-                DatabitsTextbox.Text = App.GetApp().AppConfiguration.DataBits.ToString();
-                StopbitsCombobox.SelectedIndex = (int)App.GetApp().AppConfiguration.StopBits;
+                ComPortTextBox.Text = App.CurrentApp.AppConfiguration.COMPortName;
+                BaudRateComboBox.SelectedIndex = ConvertBaudrateToIndex(App.CurrentApp.AppConfiguration.BaudRate);
+                ParityComboBox.SelectedIndex = (int)App.CurrentApp.AppConfiguration.ParityType;
+                DatabitsTextbox.Text = App.CurrentApp.AppConfiguration.DataBits.ToString();
+                StopbitsCombobox.SelectedIndex = (int)App.CurrentApp.AppConfiguration.StopBits;
 
-                LastWeightAddressTextbox.Text = App.GetApp().AppConfiguration.LastWeightFileAddress;
-                PackAddressTextbox.Text = App.GetApp().AppConfiguration.PackDetailsFileAddress;
+                LastWeightAddressTextbox.Text = App.CurrentApp.AppConfiguration.LastWeightFileAddress;
+                PackAddressTextbox.Text = App.CurrentApp.AppConfiguration.PackDetailsFileAddress;
 
-                PrintStdNoTextbox.Text = App.GetApp().AppConfiguration.PrintStdNo;
-                PrintProcedureTextbox.Text = App.GetApp().AppConfiguration.PrintProProcedure ;
-                PrintSizeScaleFactorTextbox.Text = App.GetApp().AppConfiguration.ScaleFactor.ToString();
-                BackgroundImageUriTextbox.Text = App.GetApp().AppConfiguration.PrintBackgroundImageAddress;
+                PrintStdNoTextbox.Text = App.CurrentApp.AppConfiguration.PrintStdNo;
+                PrintProcedureTextbox.Text = App.CurrentApp.AppConfiguration.PrintProProcedure ;
+                PrintSizeScaleFactorTextbox.Text = App.CurrentApp.AppConfiguration.ScaleFactor.ToString();
+                BackgroundImageUriTextbox.Text = App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress;
 
-                LengthEndTrimTextBox.Text = App.GetApp().AppConfiguration.EndTrimLength.ToString();
+                LengthEndTrimTextBox.Text = App.CurrentApp.AppConfiguration.EndTrimLength.ToString();
 
                 // Tag : Do restart?
                 SaveButton.Tag = false;
@@ -292,10 +270,7 @@ namespace Dashboard
             return -1;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            App.Current.MainWindow.Hide();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => App.Current.MainWindow.Hide();
 
         private void MaximizeRestoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -357,18 +332,12 @@ namespace Dashboard
             }
         }
 
-        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-            try
-            {
-                MainFrame.MarginFadeInAnimation(new Thickness(20,0,0,0), new Thickness(1,0,1,0), TimeSpan.FromMilliseconds(500));
-            } catch  {  }
-        }
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e) =>
+            new Action(() =>
+            MainFrame.MarginFadeInAnimation(new Thickness(20, 0, 0, 0), new Thickness(1, 0, 1, 0), TimeSpan.FromMilliseconds(500))
+            ).Try();
 
-        private void HomePageClick(object sender, RoutedEventArgs e)
-        {
-            App.GetApp().AppWindow.MainFrame.Navigate(App.GetApp().MainPage);
-        }
+        private void HomePageClick(object sender, RoutedEventArgs e) => App.CurrentApp.AppWindow.MainFrame.Navigate(App.CurrentApp.MainPage);
 
         private void RegenerateItemCodesButton_Click(object sender, RoutedEventArgs e)
         {
@@ -378,309 +347,17 @@ namespace Dashboard
                 RegenerateItemCodesButtonMessage.Text = "All data will be lost and new data will be replaced. Are you sure? (Click to regenerate)";
             } else
             {
-                DataBaseHelper.Entities.Database.ExecuteSqlCommand("DELETE FROM [ItemCodes]");
-                #region Data ReGenerate Region
-                DataBaseHelper.Entities.ItemCodes.Add(
-                    new ItemCodes()
-                    {
-                        Diameter = "8",
-                        ItemCode = "7080130001",
-                        Length = "12",
-                        SignID = "A3"
-                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "10",
-                                        ItemCode = "7080130002",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "12",
-                                        ItemCode = "7080130003",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "14",
-                                        ItemCode = "7080130004",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "16",
-                                        ItemCode = "7080130005",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "18",
-                                        ItemCode = "7080130006",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "20",
-                                        ItemCode = "7080130007",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "22",
-                                        ItemCode = "7080130008",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "25",
-                                        ItemCode = "7080130009",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "28",
-                                        ItemCode = "70801300010",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "30",
-                                        ItemCode = "70801300011",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "32",
-                                        ItemCode = "70801300012",
-                                        Length = "12",
-                                        SignID = "A3"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "8",
-                                        ItemCode = "7080150001",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "10",
-                                        ItemCode = "7080150002",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "12",
-                                        ItemCode = "7080150003",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "14",
-                                        ItemCode = "7080150004",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "16",
-                                        ItemCode = "7080150005",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "18",
-                                        ItemCode = "7080150006",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "20",
-                                        ItemCode = "7080150007",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "22",
-                                        ItemCode = "7080150008",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "25",
-                                        ItemCode = "7080150009",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "28",
-                                        ItemCode = "70801500010",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "30",
-                                        ItemCode = "70801500011",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "32",
-                                        ItemCode = "70801500012",
-                                        Length = ">4",
-                                        SignID = "A3-N"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "32",
-                                        ItemCode = "7080160001",
-                                        Length = ">4",
-                                        SignID = "A3-G2"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "25",
-                                        ItemCode = "7080160002",
-                                        Length = ">4",
-                                        SignID = "A3-G2"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "14",
-                                        ItemCode = "7080160003",
-                                        Length = ">4",
-                                        SignID = "A3-G2"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "10",
-                                        ItemCode = "7120520002",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "12",
-                                        ItemCode = "7120520003",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "14",
-                                        ItemCode = "7120520004",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "16",
-                                        ItemCode = "7120520005",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "18",
-                                        ItemCode = "7120520006",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "20",
-                                        ItemCode = "7120520007",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "22",
-                                        ItemCode = "7120520008",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "25",
-                                        ItemCode = "7120520009",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "28",
-                                        ItemCode = "71205200010",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                DataBaseHelper.Entities.ItemCodes.Add(
-                                    new ItemCodes()
-                                    {
-                                        Diameter = "32",
-                                        ItemCode = "71205200011",
-                                        Length = ">4",
-                                        SignID = "Waste"
-                                    });
-                #endregion
+                DataBaseHelper.Entities.Database.ExecuteSqlCommand("DELETE FROM [Goods]");
+                BafghAutomation.Engine.DefaultGoods.Goods.ToList().ForEach(g => DataBaseHelper.Entities.Goods.Add(g));
                 DataBaseHelper.Entities.SaveChanges();
                 RegenerateItemCodesButton.Tag = "";
                 RegenerateItemCodesButtonMessage.Text = "Regenerate Item Codes with it's default values";
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

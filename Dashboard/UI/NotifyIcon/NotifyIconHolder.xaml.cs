@@ -15,7 +15,7 @@ namespace Dashboard.UI.NotifyIcon
 
         private async void MenuItem_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
-            App.TryClosingPort();
+            App.TryClosingPorts();
             await Task.Delay(100);
             App.Current.Shutdown();
         }

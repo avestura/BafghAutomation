@@ -108,12 +108,12 @@ namespace Dashboard.UI.Controls
 
         private void Preview_Click(object sender, RoutedEventArgs e)
         {
-            App.GetApp().AppWindow.MainFrame.Navigate(
+            App.CurrentApp.AppWindow.MainFrame.Navigate(
                 new PrintPage(
                     Length,
                     Weight,
-                    App.GetApp().AppConfiguration.PrintStdNo,
-                    App.GetApp().AppConfiguration.PrintProProcedure,
+                    App.CurrentApp.AppConfiguration.PrintStdNo,
+                    App.CurrentApp.AppConfiguration.PrintProProcedure,
                     Grade,
                     Diameter,
                     PackNumber
@@ -131,8 +131,8 @@ namespace Dashboard.UI.Controls
                     Dia = Diameter,
                     Grade = Grade,
                     Length = Length,
-                    Proc = App.GetApp().AppConfiguration.PrintProProcedure,
-                    StdNo = App.GetApp().AppConfiguration.PrintStdNo,
+                    Proc = App.CurrentApp.AppConfiguration.PrintProProcedure,
+                    StdNo = App.CurrentApp.AppConfiguration.PrintStdNo,
                     Weight = Weight,
                     ImageSource = Extensions.GetPrintImageUri(),
                     BarCodeData = PackNumber

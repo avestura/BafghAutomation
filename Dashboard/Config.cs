@@ -89,13 +89,13 @@ namespace Dashboard
                 using (FileStream fileStream = new FileStream(path, FileMode.Open))
                 {
                     var stream = new StreamReader(fileStream, Encoding.UTF8);
-                    App.GetApp().AppConfiguration = (Config)serializer.Deserialize(stream);
+                    App.CurrentApp.AppConfiguration = (Config)serializer.Deserialize(stream);
                 }
             }
             catch
             {
-                App.GetApp().AppConfiguration = new Config();
-                App.GetApp().AppConfiguration.SaveSettingsToFile();
+                App.CurrentApp.AppConfiguration = new Config();
+                App.CurrentApp.AppConfiguration.SaveSettingsToFile();
             }
         }
 

@@ -40,7 +40,7 @@ namespace Dashboard.UI.Pages
             SentInfoPresenters = new ObservableCollection<DataInfoPresenter>();
             PackPresenters = new ObservableCollection<PackView>();
 
-            App.GetApp().MainPage = this;
+            App.CurrentApp.MainPage = this;
 
             InitializeComponent();
         }
@@ -126,11 +126,11 @@ namespace Dashboard.UI.Pages
 
                 string[] portNames = SerialPort.GetPortNames();
 
-                string comPortMonitor = App.GetApp().AppConfiguration.COMPortName;
-                int baudRate = App.GetApp().AppConfiguration.BaudRate;
-                var parity = App.GetApp().AppConfiguration.ParityType;
-                int databits = App.GetApp().AppConfiguration.DataBits;
-                var stopbits = App.GetApp().AppConfiguration.StopBits;
+                string comPortMonitor = App.CurrentApp.AppConfiguration.COMPortName;
+                int baudRate = App.CurrentApp.AppConfiguration.BaudRate;
+                var parity = App.CurrentApp.AppConfiguration.ParityType;
+                int databits = App.CurrentApp.AppConfiguration.DataBits;
+                var stopbits = App.CurrentApp.AppConfiguration.StopBits;
 
                 if (portNames.Contains(comPortMonitor))
                 {
@@ -174,9 +174,9 @@ namespace Dashboard.UI.Pages
                 SentInfoDatePicker.SelectedDate = DateTime.Now;
                 PackDatePicker.SelectedDate = DateTime.Now;
 
-                DataBaseHelper.Entities.ItemCodes.LoadAsync();
+                DataBaseHelper.Entities.Goods.LoadAsync();
 
-                ItemsCodeDataGrid.ItemsSource = DataBaseHelper.Entities.ItemCodes.Local;
+                ItemsCodeDataGrid.ItemsSource = DataBaseHelper.Entities.Goods.Local;
 
                 PackPresenters_Update();
             }
@@ -384,13 +384,13 @@ namespace Dashboard.UI.Pages
         {
             while (true)
             {
-                uint waitTime = App.GetApp().AppConfiguration.StabilityTime;
+                uint waitTime = App.CurrentApp.AppConfiguration.StabilityTime;
                 if (waitTime > 30000)
                     waitTime = 30000;
                 if (waitTime < 500)
                     waitTime = 500;
 
-                uint delayTime = App.GetApp().AppConfiguration.RepetitiveDelayTime;
+                uint delayTime = App.CurrentApp.AppConfiguration.RepetitiveDelayTime;
                 if (delayTime > 50000)
                     delayTime = 50000;
                 if (delayTime < 500)
@@ -453,7 +453,7 @@ namespace Dashboard.UI.Pages
 
         public void WriteLastWeight(string weight)
         {
-            string path = App.GetApp().AppConfiguration.LastWeightFileAddress;
+            string path = App.CurrentApp.AppConfiguration.LastWeightFileAddress;
             if (path.Trim() != "")
             {
                 try
@@ -577,7 +577,7 @@ namespace Dashboard.UI.Pages
 
         private void AddNewItemCodeButton_Click(object sender, RoutedEventArgs e)
         {
-            App.GetApp().AppWindow.MainFrame.Navigate(new AddItemCodePage());
+            App.CurrentApp.AppWindow.MainFrame.Navigate(new AddItemCodePage());
         }
 
         #region Pack View Refersh
@@ -611,14 +611,14 @@ namespace Dashboard.UI.Pages
         private async void PackDetailsManualAdd_Click(object sender, RoutedEventArgs e)
         {
             if(MessageBox.Show(
-                $"Do you want to manual fetch data from \"{App.GetApp().AppConfiguration.PackDetailsFileAddress}\"?",
+                $"Do you want to manual fetch data from \"{App.CurrentApp.AppConfiguration.PackDetailsFileAddress}\"?",
                 "Warning",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Exclamation,
                 MessageBoxResult.No,
                 MessageBoxOptions.None) == MessageBoxResult.Yes)
             {
-                await App.GetApp().RecivePackDetailsDataAsync();
+                await App.CurrentApp.RecivePackDetailsDataAsync();
             }
         }
     }

@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dashboard.DataBase
+﻿namespace Dashboard.DataBase
 {
-    using System;
+    using BafghAutomation.Engine.Models;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
 
-    public partial class AppDataContext : DbContext
+    public class AppDataContext : DbContext
     {
 
         public AppDataContext()
             : base("name=AppDataContext")
         {
+            Database.SetInitializer<AppDataContext>(null);
         }
 
-        public DbSet<Packs> Packs { get; set; }
-        public DbSet<SentItems> SentItems { get; set; }
-        public DbSet<ItemCodes> ItemCodes { get; set; }
+        public DbSet<Pack> Packs { get; set; }
+        public DbSet<SentItem> SentItems { get; set; }
+        public DbSet<Good> Goods { get; set; }
     }
 }

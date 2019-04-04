@@ -1,4 +1,5 @@
-﻿using Dashboard.DataBase;
+﻿using BafghAutomation.Engine.Models;
+using Dashboard.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,23 +54,23 @@ namespace Dashboard.UI.Pages
         {
             if(AddButtonText.Text == CancelText)
             {
-                App.GetApp().AppWindow.MainFrame.Navigate(App.GetApp().MainPage);
+                App.CurrentApp.AppWindow.MainFrame.Navigate(App.CurrentApp.MainPage);
             } else
             {
                 try
                 {
-                    DataBaseHelper.Entities.ItemCodes.Add(
-                        new ItemCodes()
-                        {
-                            ItemCode = ItemCodeTextUI.Text,
-                            Diameter = DiaTextUI.Text,
-                            Length = LenTextUI.Text,
-                            SignID = GradeTextUI.Text
-                        });
+                    DataBaseHelper.Entities.Goods.Add(
+                        new Good(
+                            id: 0,
+                            itemCode: ItemCodeTextUI.Text,
+                            diameter: DiaTextUI.Text,
+                            length: LenTextUI.Text,
+                            signId: GradeTextUI.Text
+                        ));
                     DataBaseHelper.Entities.SaveChanges();
                 } catch { }
 
-                App.GetApp().AppWindow.MainFrame.Navigate(App.GetApp().MainPage);
+                App.CurrentApp.AppWindow.MainFrame.Navigate(App.CurrentApp.MainPage);
             }
         }
     }

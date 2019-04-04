@@ -188,27 +188,6 @@ namespace Dashboard
         }
         #endregion
 
-        //public static async void NumberAnimation(this ContentControl control, int changeToValue, int fromValue = 0, TimeSpan? duration = null)
-        //{
-
-        //    try
-        //    {
-        //        fromValue = int.Parse(control.Content.ToString());
-        //    }
-        //    catch { fromValue = 0; }
-
-        //    int currentValue = fromValue;
-
-        //    int diff = changeToValue - fromValue;
-
-        //    if (duration == null)
-        //        duration = new TimeSpan(0, 0, 1);
-
-        //    int changeStep = 1;
-        //    if (fromValue > changeToValue)
-        //        changeStep = -1;
-
-        //}
 
     }
 }

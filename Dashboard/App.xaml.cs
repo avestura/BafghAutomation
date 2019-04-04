@@ -1,18 +1,15 @@
-﻿using Dashboard.DataBase;
+﻿using BafghAutomation.Engine.Models;
+using Dashboard.DataBase;
+using Dashboard.Helpers;
 using Dashboard.IO;
 using Dashboard.UI.Pages;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -28,6 +25,8 @@ namespace Dashboard
         /// </summary>
         private static readonly int programInstancesCount = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Length;
 
+        public static App CurrentApp => (App)Current;
+
         public MainWindow AppWindow { get; set; }
         public TaskbarIcon TaskbarIcon { get; set; }
         public MainPage MainPage { get; set; }
@@ -42,19 +41,7 @@ namespace Dashboard
 
         public Config AppConfiguration { get; set; }
 
-        private void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
-        }
-
-        private void Taskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
-        {
-            App.Current.MainWindow.Show();
-        }
-
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            TaskbarIcon.Dispose();
-        }
+        private void Application_Exit(object sender, ExitEventArgs e) => TaskbarIcon.Dispose();
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
@@ -72,98 +59,46 @@ namespace Dashboard
             messageText += "We suggest you to close the application and report data to developers.";
         }
 
-        public static void TryClosingPort()
+        public static void TryClosingPorts()
         {
-            try
+            var threadsToAbort = new List<Thread>
             {
-                try
-                {
-                    PortManager.ReaderThread.Abort();
-                }
-                catch { }
+                PortManager.ReaderThread,
+                PortManager.ParserThread,
+                PortManager.ElementsSender,
+                PortManager.ItemCreatorThread
+            };
+            threadsToAbort.ForEach(t => new Action(() => t.Abort()).Try());
 
-                try
-                {
-                    PortManager.ParserThread.Abort();
-                }
-                catch { }
-
-                try
-                {
-                    PortManager.ElementsSender.Abort();
-                }
-                catch { }
-
-                try
-                {
-                    PortManager.ItemCreatorThread.Abort();
-                }
-                catch { }
-
-                if (PortManager.GlobalPort != null)
-                {
-                    if (PortManager.GlobalPort.IsOpen)
-                        PortManager.GlobalPort.Close();
-                }
+            if (PortManager.GlobalPort?.IsOpen == true)
+            {
+                new Action(() => PortManager.GlobalPort.Close()).Try();
             }
-            catch { }
         }
 
-        private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            TryClosingPort();
-        }
+        private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e) => TryClosingPorts();
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            if (programInstancesCount > 1)
+            AppInitializer.CheckNumberOfInstances(programInstancesCount);
+
+            AppInitializer.InitializeDomain();
+            AppInitializer.InitialzeTaskbarIcon((s, ev) => Current.MainWindow.Show());
+            AppInitializer.InitializeCulture();
+            AppInitializer.InitializeConfig();
+            AppInitializer.InitializeFileWatcher(async (s, ev) =>
             {
-                MessageBox.Show("Currently an instance of application is running. Use other instances, or close other instance before using this instance."
-                    , "Instance", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK);
-
-                Shutdown();
-            }
-
-            TaskbarIcon = (TaskbarIcon)Current.FindResource("Application.Global.NotifyIcon");
-            TaskbarIcon.TrayMouseDoubleClick += Taskbar_TrayMouseDoubleClick;
-
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("fa-IR");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("fa-IR");
-
-            Config.InitializeLocalFolder();
-            Config.LoadSettingsFromFile();
-
-            if (AppConfiguration.PackDetailsFileAddress.Trim() != string.Empty)
-            {
-                try
-                {
-                    FileWatcher.Changed += FileWatcher_Changed;
-                    FileWatcher.Path = Path.GetDirectoryName(AppConfiguration.PackDetailsFileAddress);
-                    FileWatcher.Filter = Path.GetFileName(AppConfiguration.PackDetailsFileAddress);
-                    FileWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
-                    FileWatcher.EnableRaisingEvents = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Something wrong with Watcher: " + ex.Message);
-                }
-            }
-        }
-
-        private async void FileWatcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            FileWatcher.EnableRaisingEvents = false;
-
-            await RecivePackDetailsDataAsync();
-
-            FileWatcher.EnableRaisingEvents = true;
+                FileWatcher.EnableRaisingEvents = false;
+                await RecivePackDetailsDataAsync();
+                FileWatcher.EnableRaisingEvents = true;
+            });
         }
 
         public async Task RecivePackDetailsDataAsync()
         {
             try
             {
-                string content = "";
+                string content = string.Empty;
 
                 await Task.Delay(500);
 
@@ -186,14 +121,13 @@ namespace Dashboard
                     string weight = splitedData[3];
                     string itemCode = splitedData[4];
 
-                    DataBaseHelper.Entities.Packs.Add(new Packs()
-                    {
-                        ItemCode = itemCode,
-                        Date = dateString,
-                        PackNo = packNumber,
-                        Time = timeString,
-                        Weight = weight
-                    });
+                    DataBaseHelper.Entities.Packs.Add(new Pack(
+                        id: 0,
+                        itemCode: itemCode,
+                        weight: weight,
+                        time: timeString,
+                        date: dateString,
+                        packNo: packNumber));
 
                     DataBaseHelper.Entities.SaveChanges();
 
@@ -206,8 +140,6 @@ namespace Dashboard
             }
             catch (Exception ex) { MessageBox.Show("Error occured with new pack: " + ex.Message); }
         }
-
-        public static App GetApp() => (App)Current;
 
         [Conditional("DEBUG")]
         public static void WriteLog(Exception ex)
