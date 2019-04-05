@@ -27,6 +27,10 @@
                     <convert:BoolToVisibilityConverter x:Key="BoolToVisibility" />
                 </ResourceDictionary>
 
+                <ResourceDictionary>
+                    <FontFamily x:Key="Barcode">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9</FontFamily>
+                    <FontFamily x:Key="BarcodeExtended">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9 Extended</FontFamily>
+                </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

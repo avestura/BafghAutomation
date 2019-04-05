@@ -92,7 +92,7 @@ namespace Dashboard.UI.Controls.DesignViewControls
             {
                 BindTo_Menu.IsEnabled = false;
                 SetCustomText_Menu.IsEnabled = false;
-                DESIGN_Textblock.FontFamily = new FontFamily(new Uri("pack://application:,,,/Dashboard;component/Resources/Fonts/"), "./#free 3 of 9 Extended");
+                DESIGN_Textblock.FontFamily = App.Current.Resources["BarcodeExtended"] as FontFamily;
             }
             else
             {

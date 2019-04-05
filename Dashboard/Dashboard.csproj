@@ -123,6 +123,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\AppInitializer.cs" />
     <Compile Include="Helpers\CommonExtensions.cs" />
+    <Compile Include="Helpers\DocumentHelper.cs" />
     <Compile Include="IO\NetManager.cs" />
     <Compile Include="IO\PortManager.cs" />
     <Compile Include="Models\BinableTextboxSaveModel.cs" />
