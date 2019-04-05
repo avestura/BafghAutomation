@@ -100,7 +100,7 @@ namespace Dashboard.UI.Pages
                 }
                 else if (item.Type == BindableTextType.BarCode)
                 {
-                    textblock.SetBinding(BindableTextBlock.TextProperty, "BarCodeData");
+                    textblock.SetBinding(BindableTextBlock.TextProperty, "BarCodeUI");
                 }
                 else
                 {
