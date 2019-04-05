@@ -75,7 +75,7 @@
                     WindowChrome.IsHitTestVisibleInChrome="True">
                     <Button
                         Margin="0,0,10,0"
-                        Click="Button_Click_1"
+                        Click="Open_PrintViewDesigner"
                         Style="{DynamicResource Homatec.COMPort.CloseButton}"
                         ToolTip="Open Print Designer Window">
                         <fa:ImageAwesome

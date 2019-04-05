@@ -6,7 +6,6 @@
 
     public class AppDataContext : DbContext
     {
-
         public AppDataContext()
             : base("name=AppDataContext")
         {

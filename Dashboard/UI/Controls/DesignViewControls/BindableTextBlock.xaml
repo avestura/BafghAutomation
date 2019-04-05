@@ -1,0 +1,75 @@
+﻿<UserControl
+    x:Class="Dashboard.UI.Controls.DesignViewControls.BindableTextBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Dashboard.UI.Controls.DesignViewControls"
+    xmlns:convert="clr-namespace:Dashboard.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Dashboard.UI.Controls.DesignViewControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="_this"
+    Loaded="Component_Loaded"
+    mc:Ignorable="d">
+
+    <Grid x:Name="MasterGrid" Background="{Binding Designing, ElementName=_this, Converter={StaticResource BoolToBrush}}">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem
+                    x:Name="SetCustomText_Menu"
+                    Click="SetCustomText_Click"
+                    Header="Set Custom Text" />
+                <MenuItem x:Name="BindTo_Menu" Header="Bind To...">
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Standard No"
+                        Tag="StdNo" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Nominal Dia"
+                        Tag="Dia" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Grade"
+                        Tag="Grade" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Parcel Weight"
+                        Tag="Weight" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Pro Procedure"
+                        Tag="Proc" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Length"
+                        Tag="Length" />
+                    <MenuItem
+                        Click="BindTo_Click"
+                        Header="Barcode Data"
+                        Tag="BarCodeData" />
+                </MenuItem>
+                <MenuItem Click="ToggleDesign_Click" Header="Toggle Design" />
+            </ContextMenu>
+        </Grid.ContextMenu>
+        <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock
+                x:Name="DESIGN_Textblock"
+                FontSize="15"
+                FontWeight="Bold"
+                Text="{Binding Text, ElementName=_this}" />
+        </Viewbox>
+
+        <Rectangle
+            Stroke="Gray"
+            StrokeDashArray="2 3"
+            StrokeThickness="1"
+            Visibility="{Binding Designing, ElementName=_this, Converter={StaticResource BoolToVisibility}}" />
+        <Thumb
+            Width="10"
+            Height="10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            DragDelta="Thumb_DragDelta"
+            Visibility="{Binding Designing, ElementName=_this, Converter={StaticResource BoolToVisibility}}" />
+    </Grid>
+</UserControl>

@@ -105,8 +105,6 @@ namespace Dashboard.DataBase
 
             string dateToFind = year + month + day;
 
-            var x = Entities.Packs.ToList();
-
             var extractedData = from e in Entities.Packs where ( e.Date == dateToFind ) select e;
 
             foreach (var item in extractedData)

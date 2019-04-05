@@ -1,167 +1,30 @@
-﻿<Page x:Class="Dashboard.UI.Pages.PrintPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Dashboard.UI.Pages"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Title="PrintPage"
-      d:DesignHeight="300" d:DesignWidth="300" Background="White"
-      Loaded="Page_Loaded" mc:Ignorable="d">
+﻿<Page
+    x:Class="Dashboard.UI.Pages.PrintPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Dashboard.UI.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PrintPage"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Background="White"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
 
     <Page.Resources>
-        <FixedPage x:Key="fPage" x:Name="FPage" Width="{Binding SceneWidth}" Height="{Binding SceneHeight}">
-
-            <Image Width="{Binding SceneWidth}" Height="{Binding SceneHeight}"
-                       Source="{Binding ImageSource}" />
-
-            <Grid Width="{Binding SceneWidth}" Height="{Binding SceneHeight}" TextBlock.FontFamily="Times New Roman">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="117*" />
-                    <RowDefinition Height="89*" />
-                    <RowDefinition Height="89*" />
-                    <RowDefinition Height="89*" />
-                    <RowDefinition Height="110*" />
-                    <RowDefinition Height="115*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="18*" />
-                    <ColumnDefinition Width="18*"/>
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-
-                <!--#region Length Region -->
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="Length" FontWeight="Bold" Text="{Binding Length}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region Diameter Region -->
-                <Grid Grid.Row="1" Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1" >
-                        <TextBlock x:Name="Diameter" FontWeight="Bold" Text="{Binding Dia}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region Grade Region -->
-                <Grid Grid.Row="2" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="Grade" FontWeight="Bold" Text="{Binding Grade}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region Weight Region -->
-                <Grid Grid.Row="2" Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="Weight" FontWeight="Bold" Text="{Binding Weight}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region Procedure Region -->
-                <Grid Grid.Row="3" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="Procedure" FontWeight="Bold" Text="{Binding Proc}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region StandardNo Region -->
-                <Grid Grid.Row="3" Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
-                        <RowDefinition Height="1.5*" />
-                    </Grid.RowDefinitions>
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="StandardNo" FontWeight="Bold" Text="{Binding StdNo}"
-                           TextAlignment="Center" />
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-                <!--#region Barcode -->
-                <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="18*" />
-                        <RowDefinition Height="8*" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="12*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <Viewbox Grid.Row="1" Grid.Column="1">
-                        <TextBlock x:Name="barcode_Block" TextAlignment="Center" Text="{Binding BarCodeUI}" FontFamily="pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9" />
-                    </Viewbox>
-                    <Viewbox Grid.Row="2" Grid.Column="1">
-                        <TextBlock  FontWeight="Bold" TextAlignment="Center" Text="{Binding BarCodeData}"/>
-                    </Viewbox>
-                </Grid>
-                <!--#endregion-->
-
-            </Grid>
-
+        <FixedPage
+            x:Key="fPage"
+            x:Name="DESIGN_FixedPage"
+            Width="357"
+            Height="472"
+            Background="Transparent">
+            <Image
+                x:Name="DESIGN_Image"
+                Width="354"
+                Height="472"
+                Source="pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png" />
+            <Canvas x:Name="DESIGN_Canvas" />
         </FixedPage>
     </Page.Resources>
 

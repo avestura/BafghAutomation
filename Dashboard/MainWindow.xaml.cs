@@ -1,6 +1,7 @@
 ﻿using Dashboard.DataBase;
 using Dashboard.Helpers;
 using Dashboard.UI.Controls;
+using Dashboard.UI.Windows;
 using Microsoft.Win32;
 using System;
 using System.IO.Ports;
@@ -355,9 +356,9 @@ namespace Dashboard
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Open_PrintViewDesigner(object sender, RoutedEventArgs e)
         {
-
+            new PrintViewDesigner().Show();
         }
     }
 }

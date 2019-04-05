@@ -8,6 +8,8 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO.Ports;
+using Dashboard.Models;
+using System.Windows.Media.Imaging;
 
 namespace Dashboard
 {
@@ -40,6 +42,12 @@ namespace Dashboard
         public ushort EndTrimLength { get; set; } = 0;
 
         public double ScaleFactor { get; set; } = 1;
+
+        public DesignSaveModel DesignModel { get; set; } = new DesignSaveModel
+        {
+            ImageBackgroundSource = null,
+            Textboxes = new List<BindableTextboxSaveModel>()
+        };
 
         #region Config :: Constants
         private const string fileName = "App.Config.Xml";

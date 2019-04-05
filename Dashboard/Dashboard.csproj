@@ -125,6 +125,8 @@
     <Compile Include="Helpers\CommonExtensions.cs" />
     <Compile Include="IO\NetManager.cs" />
     <Compile Include="IO\PortManager.cs" />
+    <Compile Include="Models\BinableTextboxSaveModel.cs" />
+    <Compile Include="UI\Adorners\DesignAdorner.cs" />
     <Compile Include="UI\Assets\PrintAssets\PageReportData.cs" />
     <Compile Include="UI\Assets\PrintAssets\PrintResource.xaml.cs">
       <DependentUpon>PrintResource.xaml</DependentUpon>
@@ -136,12 +138,19 @@
       <DependentUpon>DataInfoPresenter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\DataInfoPresenterEnum.cs" />
+    <Compile Include="UI\Controls\DesignViewControls\BindableTextBlock.xaml.cs">
+      <DependentUpon>BindableTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\DesignViewControls\BoolToBrushConverter.cs" />
+    <Compile Include="UI\Controls\DesignViewControls\DesignModeToBrush.cs" />
     <Compile Include="UI\Controls\PackView.xaml.cs">
       <DependentUpon>PackView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\ReportContent.xaml.cs">
       <DependentUpon>ReportContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="UI\Handlers\BasicDesignControlDragDropHandler.cs" />
     <Compile Include="UI\NotifyIcon\NotifyIconHolder.xaml.cs">
       <DependentUpon>NotifyIconHolder.xaml</DependentUpon>
     </Compile>
@@ -153,6 +162,12 @@
     </Compile>
     <Compile Include="UI\Pages\PrintPage.xaml.cs">
       <DependentUpon>PrintPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\PrintViewDesigner.xaml.cs">
+      <DependentUpon>PrintViewDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\SetCustomText.xaml.cs">
+      <DependentUpon>SetCustomText.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Controls\DataInfoPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\DesignViewControls\BindableTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +230,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Templates\Thumb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\PrintViewDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\SetCustomText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -237,6 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Color\" />
+    <Folder Include="UI\MarkupExtensions\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -265,6 +297,9 @@
       <Project>{8034028d-018e-4728-92c8-10475863c553}</Project>
       <Name>BafghAutomation.Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\Assets\transpPtr.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
