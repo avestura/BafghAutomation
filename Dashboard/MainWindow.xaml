@@ -12,7 +12,7 @@
     Height="650"
     MinWidth="550"
     MinHeight="400"
-    d:DesignHeight="1000"
+    d:DesignHeight="5000"
     AllowsTransparency="True"
     Closing="Window_Closing"
     Icon="pack://application:,,,/Dashboard;component/Resources/Images/Port.ico"
@@ -526,7 +526,7 @@
                                                     Grid.Column="1"
                                                     Margin="10,0,0,0" />
 
-                                                <TextBlock
+                                                <!--<TextBlock
                                                     Grid.Row="6"
                                                     Grid.Column="0"
                                                     VerticalAlignment="Center">
@@ -548,7 +548,7 @@
                                                     Click="ReadWriteToAddressSelect"
                                                     Tag="Image">
                                                     ...
-                                                </Button>
+                                                </Button>-->
 
                                             </Grid>
                                         </StackPanel>
