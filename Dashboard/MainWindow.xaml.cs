@@ -147,7 +147,9 @@ namespace Dashboard
                 App.CurrentApp.AppConfiguration.PackDetailsFileAddress = PackAddressTextbox.Text;
                 App.CurrentApp.AppConfiguration.PrintStdNo = PrintStdNoTextbox.Text;
                 App.CurrentApp.AppConfiguration.PrintProProcedure = PrintProcedureTextbox.Text;
-                App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress = BackgroundImageUriTextbox.Text;
+                App.CurrentApp.AppConfiguration.PrintReversed = PrintReversed.IsChecked.Value;
+                App.CurrentApp.AppConfiguration.PrintWithRemovedBackground = RemoveBackground.IsChecked.Value;
+                //App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress = BackgroundImageUriTextbox.Text;
 
                 bool valid = double.TryParse(PrintSizeScaleFactorTextbox.Text, out double tempScale);
                 App.CurrentApp.AppConfiguration.ScaleFactor = (!valid || tempScale > 1000 || tempScale < 0.001) ? 1 : tempScale;
@@ -229,7 +231,9 @@ namespace Dashboard
                 PrintStdNoTextbox.Text = App.CurrentApp.AppConfiguration.PrintStdNo;
                 PrintProcedureTextbox.Text = App.CurrentApp.AppConfiguration.PrintProProcedure ;
                 PrintSizeScaleFactorTextbox.Text = App.CurrentApp.AppConfiguration.ScaleFactor.ToString();
-                BackgroundImageUriTextbox.Text = App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress;
+                PrintReversed.IsChecked = App.CurrentApp.AppConfiguration.PrintReversed;
+                RemoveBackground.IsChecked = App.CurrentApp.AppConfiguration.PrintWithRemovedBackground;
+                //BackgroundImageUriTextbox.Text = App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress;
 
                 LengthEndTrimTextBox.Text = App.CurrentApp.AppConfiguration.EndTrimLength.ToString();
 
@@ -328,8 +332,8 @@ namespace Dashboard
                     LastWeightAddressTextbox.Text = openDia.FileName;
                 else if (tag == "Read")
                     PackAddressTextbox.Text = openDia.FileName;
-                else if (tag == "Image")
-                    BackgroundImageUriTextbox.Text = openDia.FileName;
+                //else if (tag == "Image")
+                //    BackgroundImageUriTextbox.Text = openDia.FileName;
             }
         }
 

@@ -134,6 +134,7 @@
     <Compile Include="UI\Controls\Alert.xaml.cs">
       <DependentUpon>Alert.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\CustomPrintDocumentViewer.cs" />
     <Compile Include="UI\Controls\DataInfoPresenter.xaml.cs">
       <DependentUpon>DataInfoPresenter.xaml</DependentUpon>
     </Compile>

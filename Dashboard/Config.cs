@@ -43,6 +43,9 @@ namespace Dashboard
 
         public double ScaleFactor { get; set; } = 1;
 
+        public bool PrintReversed { get; set; } = false;
+        public bool PrintWithRemovedBackground { get; set; }
+
         public DesignSaveModel DesignModel { get; set; } = new DesignSaveModel
         {
             ImageBackgroundSource = null,

@@ -62,6 +62,13 @@ namespace Dashboard.UI.Pages
             } ;
 
             LoadDesign(DESIGN_FixedPage, DESIGN_Canvas, DESIGN_Image);
+            var conf = App.CurrentApp.AppConfiguration;
+            if (conf.PrintReversed)
+                DESIGN_FixedPage.LayoutTransform = new RotateTransform(180);
+
+            if (conf.PrintWithRemovedBackground)
+                DESIGN_Image.Visibility = Visibility.Hidden;
+
             Document.Pages.Add(new PageContent()
             {
                 Child = DESIGN_FixedPage

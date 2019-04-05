@@ -494,6 +494,10 @@
                                                     <RowDefinition />
                                                     <RowDefinition Height="5" />
                                                     <RowDefinition />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" />
@@ -523,6 +527,20 @@
                                                 <TextBox
                                                     x:Name="PrintSizeScaleFactorTextbox"
                                                     Grid.Row="4"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0" />
+
+                                                <TextBlock Grid.Row="6" Grid.Column="0">Print Reversed:</TextBlock>
+                                                <CheckBox
+                                                    x:Name="PrintReversed"
+                                                    Grid.Row="6"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0" />
+
+                                                <TextBlock Grid.Row="8" Grid.Column="0">Remove background before Print job:</TextBlock>
+                                                <CheckBox
+                                                    x:Name="RemoveBackground"
+                                                    Grid.Row="8"
                                                     Grid.Column="1"
                                                     Margin="10,0,0,0" />
 

@@ -1,4 +1,5 @@
 ﻿using Dashboard.UI.Assets.PrintAssets;
+using Dashboard.UI.Controls.DesignViewControls;
 using Dashboard.UI.Pages;
 using System;
 using System.Collections.Generic;
@@ -125,8 +126,11 @@ namespace Dashboard.UI.Controls
         {
             try
             {
-                var fPage = new PrintResource().Resources["fPage"] as FixedPage;
-                fPage.DataContext = new PageReportData()
+                var DESIGN_FixedPage = new PrintResource().Resources["fPage"] as FixedPage;
+                var DESIGN_Image = DESIGN_FixedPage.Children[0] as Image;
+                var DESIGN_Canvas = DESIGN_FixedPage.Children[1] as Canvas;
+
+                DESIGN_Canvas.DataContext = new PageReportData()
                 {
                     Dia = Diameter,
                     Grade = Grade,
@@ -134,12 +138,11 @@ namespace Dashboard.UI.Controls
                     Proc = App.CurrentApp.AppConfiguration.PrintProProcedure,
                     StdNo = App.CurrentApp.AppConfiguration.PrintStdNo,
                     Weight = Weight,
-                    ImageSource = Extensions.GetPrintImageUri(),
                     BarCodeData = PackNumber
                 };
-
+                LoadDesign(DESIGN_FixedPage, DESIGN_Canvas, DESIGN_Image);
                 var fDoc = new FixedDocument();
-                fDoc.Pages.Add(new PageContent() { Child = fPage });
+                fDoc.Pages.Add(new PageContent() { Child = DESIGN_FixedPage });
 
                 var dialog = new PrintDialog();
 
@@ -153,6 +156,48 @@ namespace Dashboard.UI.Controls
             } catch(Exception ex)
             {
                 MessageBox.Show($"Can't print. Reason:\n{ex.Message}");
+            }
+        }
+
+        public void LoadDesign(FixedPage DESIGN_FixedPage, Canvas DESIGN_Canvas, Image DESIGN_Image)
+        {
+
+            var conf = App.CurrentApp.AppConfiguration.DesignModel;
+            bool isDefaultImage = string.IsNullOrEmpty(conf.ImageBackgroundSource) || conf.ImageBackgroundSource == "pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png";
+            var imgUri = isDefaultImage ?
+                "pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png" : conf.ImageBackgroundSource;
+            var image = new BitmapImage(new Uri(imgUri));
+            var height = image.Height;
+            var width = image.Width;
+            DESIGN_FixedPage.Width = DESIGN_Image.Width = DESIGN_Canvas.Width = width;
+            DESIGN_FixedPage.Height = DESIGN_Image.Height = DESIGN_Canvas.Height = height;
+
+            DESIGN_Image.Source = image;
+
+            foreach (var item in conf.Textboxes)
+            {
+                var textblock = new BindableTextBlock(item.Type, disableContextMenu: true)
+                {
+                    Width = item.Width,
+                    Height = item.Height,
+                    Tag = (item.IsBound) ? $"BINDTO:{item.BindingTag}" : "",
+                    Designing = false
+                };
+                if (item.IsBound)
+                {
+                    textblock.SetBinding(BindableTextBlock.TextProperty, item.BindingTag);
+                }
+                else if (item.Type == BindableTextType.BarCode)
+                {
+                    textblock.SetBinding(BindableTextBlock.TextProperty, "BarCodeUI");
+                }
+                else
+                {
+                    textblock.Text = item.Text;
+                }
+                DESIGN_Canvas.Children.Add(textblock);
+                Canvas.SetLeft(textblock, item.CanvasLeft);
+                Canvas.SetTop(textblock, item.CanvasTop);
             }
         }
     }
