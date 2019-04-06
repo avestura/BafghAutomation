@@ -16,8 +16,8 @@ namespace Dashboard.UI.Controls
     {
         public string DateAndTime
         {
-            get { return (string)GetValue(DateAndTimeProperty); }
-            set { SetValue(DateAndTimeProperty, value); }
+            get => (string)GetValue(DateAndTimeProperty);
+            set => SetValue(DateAndTimeProperty, value);
         }
 
         public static readonly DependencyProperty DateAndTimeProperty =
@@ -25,8 +25,8 @@ namespace Dashboard.UI.Controls
 
         public string Weight
         {
-            get { return (string)GetValue(WeightProperty); }
-            set { SetValue(WeightProperty, value); }
+            get => (string)GetValue(WeightProperty);
+            set => SetValue(WeightProperty, value);
         }
 
         public static readonly DependencyProperty WeightProperty =
@@ -34,8 +34,8 @@ namespace Dashboard.UI.Controls
 
         public string PackNumber
         {
-            get { return (string)GetValue(PackNumberProperty); }
-            set { SetValue(PackNumberProperty, value); }
+            get => (string)GetValue(PackNumberProperty);
+            set => SetValue(PackNumberProperty, value);
         }
 
         public static readonly DependencyProperty PackNumberProperty =
@@ -43,8 +43,8 @@ namespace Dashboard.UI.Controls
 
         public string ItemCode
         {
-            get { return (string)GetValue(ItemCodeProperty); }
-            set { SetValue(ItemCodeProperty, value); }
+            get => (string)GetValue(ItemCodeProperty);
+            set => SetValue(ItemCodeProperty, value);
         }
 
         public static readonly DependencyProperty ItemCodeProperty =
@@ -52,8 +52,8 @@ namespace Dashboard.UI.Controls
 
         public string Diameter
         {
-            get { return (string)GetValue(DiameterProperty); }
-            set { SetValue(DiameterProperty, value); }
+            get => (string)GetValue(DiameterProperty);
+            set => SetValue(DiameterProperty, value);
         }
 
         public static readonly DependencyProperty DiameterProperty =
@@ -61,8 +61,8 @@ namespace Dashboard.UI.Controls
 
         public string Grade
         {
-            get { return (string)GetValue(GradeProperty); }
-            set { SetValue(GradeProperty, value); }
+            get => (string)GetValue(GradeProperty);
+            set => SetValue(GradeProperty, value);
         }
 
         public static readonly DependencyProperty GradeProperty =
@@ -70,8 +70,8 @@ namespace Dashboard.UI.Controls
 
         public string Length
         {
-            get { return (string)GetValue(LengthProperty); }
-            set { SetValue(LengthProperty, value); }
+            get => (string)GetValue(LengthProperty);
+            set => SetValue(LengthProperty, value);
         }
 
         public static readonly DependencyProperty LengthProperty =
@@ -116,7 +116,6 @@ namespace Dashboard.UI.Controls
         {
             try
             {
-
                 var fpage = DocumentHelper.GetFixedPage(new PageReportData
                 {
                     Length = Length,
@@ -139,15 +138,11 @@ namespace Dashboard.UI.Controls
                 {
                     printDialog.PrintDocument(doc.DocumentPaginator, "HOMATEC");
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Can't print. Reason:\n{ex.Message}");
             }
         }
-
-
     }
 }

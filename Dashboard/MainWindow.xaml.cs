@@ -18,6 +18,8 @@ namespace Dashboard
     /// </summary>
     public partial class MainWindow : Window
     {
+        // TODO: We need a new Settings page. DECOUPLE SETTINGS FROM MAIN WINDOW, PLEASE!!!
+
         public MainWindow()
         {
             App.CurrentApp.AppWindow = this;

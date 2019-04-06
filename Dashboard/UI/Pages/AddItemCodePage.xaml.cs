@@ -22,10 +22,7 @@ namespace Dashboard.UI.Pages
     /// </summary>
     public partial class AddItemCodePage : Page
     {
-        public AddItemCodePage()
-        {
-            InitializeComponent();
-        }
+        public AddItemCodePage() => InitializeComponent();
 
         private const string CancelText = "Cancel";
         private const string AddText = "Add Item";

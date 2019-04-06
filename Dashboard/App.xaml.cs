@@ -57,6 +57,8 @@ namespace Dashboard
                 inner = inner.InnerException;
             }
             messageText += "We suggest you to close the application and report data to developers.";
+
+            // MessageBox.Show(messageText, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public static void TryClosingPorts()

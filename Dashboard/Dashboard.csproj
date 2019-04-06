@@ -116,7 +116,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config.Constants.cs">
+      <DependentUpon>Config.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="Config.Disk.cs">
+      <DependentUpon>Config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.Events.cs">
+      <DependentUpon>Config.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\AppDataContext.cs" />
     <Compile Include="DataBase\DataBaseHelper.cs" />
     <Compile Include="Extensions.cs" />
@@ -147,9 +156,6 @@
     <Compile Include="UI\Controls\DesignViewControls\DesignModeToBrush.cs" />
     <Compile Include="UI\Controls\PackView.xaml.cs">
       <DependentUpon>PackView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controls\ReportContent.xaml.cs">
-      <DependentUpon>ReportContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="UI\Handlers\BasicDesignControlDragDropHandler.cs" />
@@ -201,10 +207,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Controls\PackView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Controls\ReportContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

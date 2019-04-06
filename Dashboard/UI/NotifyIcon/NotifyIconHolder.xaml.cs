@@ -8,12 +8,9 @@ namespace Dashboard.UI.NotifyIcon
 {
     public partial class NotifyIconHolder
     {
-        private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            App.Current.MainWindow.Show();
-        }
+        private void OpenApp_Click(object sender, System.Windows.RoutedEventArgs e) => App.Current.MainWindow.Show();
 
-        private async void MenuItem_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        private async void Shutdown_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             App.TryClosingPorts();
             await Task.Delay(100);

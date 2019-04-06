@@ -22,8 +22,7 @@ namespace Dashboard
 
         public static Uri GetPrintImageUri()
         {
-            Uri imageAddr = null;
-
+            Uri imageAddr;
             if (App.CurrentApp.AppConfiguration.PrintBackgroundImageAddress?.Length == 0)
             {
                 imageAddr = new Uri("pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png", UriKind.Absolute);

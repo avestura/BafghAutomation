@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Globalization;
 using static Dashboard.UI.Controls.DataInfoPresenterEnum;
 using System.Net.Http;
+using System.Diagnostics.Contracts;
 
 namespace Dashboard.UI.Controls
 {
@@ -23,7 +24,13 @@ namespace Dashboard.UI.Controls
     /// </summary>
     public partial class DataInfoPresenter : UserControl
     {
-        public DataInfoPresenter(bool automaticTimeAndDateSet = true, string year = "", string month = "", string day = "", string hour = "", string minute = "", string second = "")
+        public DataInfoPresenter(bool automaticTimeAndDateSet = true,
+                                 string year = "",
+                                 string month = "",
+                                 string day = "",
+                                 string hour = "",
+                                 string minute = "",
+                                 string second = "")
         {
             if (automaticTimeAndDateSet)
             {
@@ -46,9 +53,7 @@ namespace Dashboard.UI.Controls
                 NowSeconds = int.Parse(second);
             }
 
-
             DataDetails = $"{NowYear}/{NowMonth}/{NowDay} at {NowHour}:{NowMinutes}:{NowSeconds}";
-
 
             InitializeComponent();
         }
@@ -57,13 +62,12 @@ namespace Dashboard.UI.Controls
 
         public bool Sent { get; set; } = false;
 
-
         public static PersianCalendar Calendar = new PersianCalendar();
 
         public PresenterStatus DataInfoStatus
         {
-            get { return (PresenterStatus)GetValue(DataInfoStatusProperty); }
-            set { SetValue(DataInfoStatusProperty, value); }
+            get => (PresenterStatus)GetValue(DataInfoStatusProperty);
+            set => SetValue(DataInfoStatusProperty, value);
         }
 
         public static readonly DependencyProperty DataInfoStatusProperty =
@@ -71,8 +75,8 @@ namespace Dashboard.UI.Controls
 
         public string DataDetails
         {
-            get { return (string)GetValue(DataInfoStatusProperty); }
-            private set { SetValue(DataDetailsProperty, value); }
+            get => (string)GetValue(DataInfoStatusProperty);
+            private set => SetValue(DataDetailsProperty, value);
         }
 
         public static readonly DependencyProperty DataDetailsProperty =
@@ -80,8 +84,8 @@ namespace Dashboard.UI.Controls
 
         public bool Waiting
         {
-            get { return (bool)GetValue(WaitingProperty); }
-            set { SetValue(WaitingProperty, value); }
+            get => (bool)GetValue(WaitingProperty);
+            set => SetValue(WaitingProperty, value);
         }
 
         public static readonly DependencyProperty WaitingProperty =
@@ -89,8 +93,8 @@ namespace Dashboard.UI.Controls
 
         public int NowYear
         {
-            get { return (int)GetValue(NowYearProperty); }
-            set { SetValue(NowYearProperty, value); }
+            get => (int)GetValue(NowYearProperty);
+            set => SetValue(NowYearProperty, value);
         }
 
         public static readonly DependencyProperty NowYearProperty =
@@ -98,8 +102,8 @@ namespace Dashboard.UI.Controls
 
         public int NowMonth
         {
-            get { return (int)GetValue(NowMonthProperty); }
-            set { SetValue(NowMonthProperty, value); }
+            get => (int)GetValue(NowMonthProperty);
+            set => SetValue(NowMonthProperty, value);
         }
 
         public static readonly DependencyProperty NowMonthProperty =
@@ -107,8 +111,8 @@ namespace Dashboard.UI.Controls
 
         public int NowDay
         {
-            get { return (int)GetValue(NowDayProperty); }
-            set { SetValue(NowDayProperty, value); }
+            get => (int)GetValue(NowDayProperty);
+            set => SetValue(NowDayProperty, value);
         }
 
         public static readonly DependencyProperty NowDayProperty =
@@ -116,8 +120,8 @@ namespace Dashboard.UI.Controls
 
         public int NowHour
         {
-            get { return (int)GetValue(NowHourProperty); }
-            set { SetValue(NowHourProperty, value); }
+            get => (int)GetValue(NowHourProperty);
+            set => SetValue(NowHourProperty, value);
         }
 
         public static readonly DependencyProperty NowHourProperty =
@@ -125,8 +129,8 @@ namespace Dashboard.UI.Controls
 
         public int NowMinutes
         {
-            get { return (int)GetValue(NowMinutesProperty); }
-            set { SetValue(NowMinutesProperty, value); }
+            get => (int)GetValue(NowMinutesProperty);
+            set => SetValue(NowMinutesProperty, value);
         }
 
         public static readonly DependencyProperty NowMinutesProperty =
@@ -134,8 +138,8 @@ namespace Dashboard.UI.Controls
 
         public int NowSeconds
         {
-            get { return (int)GetValue(NowSecondsProperty); }
-            set { SetValue(NowSecondsProperty, value); }
+            get => (int)GetValue(NowSecondsProperty);
+            set => SetValue(NowSecondsProperty, value);
         }
 
         public static readonly DependencyProperty NowSecondsProperty =
@@ -145,7 +149,8 @@ namespace Dashboard.UI.Controls
         {
             string date = $"{NowYear}{NowMonth.ToString("00")}{NowDay.ToString("00")}";
             string time = $"{NowHour.ToString("00")}{NowMinutes.ToString("00")}{NowSeconds.ToString("00")}";
-            string url = "http://honar-e-mandegar.ir/bafgh/bafgh-label/insert";
+            // TODO: Move hard-coded url to some safe place, also separate logic
+            const string url = "http://honar-e-mandegar.ir/bafgh/bafgh-label/insert";
 
             return $"{url}?data=" + '{' + $"\"datas\":[\"{Content.ToString().Replace(" kg", "")},{date},{time}\"]" + '}';
         }
@@ -155,7 +160,8 @@ namespace Dashboard.UI.Controls
             string date = $"{NowYear}{NowMonth.ToString("00")}{NowDay.ToString("00")}";
             string time = $"{NowHour.ToString("00")}{NowMinutes.ToString("00")}{NowSeconds.ToString("00")}";
 
-            string url = "http://honar-e-mandegar.ir/bafgh/bafgh-label/insert";
+            // TODO: Move hard-coded url to some safe place, also separate logic
+            const string url = "http://honar-e-mandegar.ir/bafgh/bafgh-label/insert";
             var postData = new Dictionary<string, string>()
             {
                 { "data", '{' + $"\"datas\":[\"{Content.ToString().Replace(" kg", "")},{date},{time}\"]" + '}' },
@@ -169,6 +175,7 @@ namespace Dashboard.UI.Controls
             return await response.Content.ReadAsStringAsync();
         }
 
+        [Pure]
         public DataInfoPresenter CreatePureCopy()
         {
             return new DataInfoPresenter()

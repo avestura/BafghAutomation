@@ -1,37 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Dashboard.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Collections.ObjectModel;
 using Dashboard.UI.Controls;
-using System.Net;
-using static Dashboard.UI.Controls.DataInfoPresenterEnum;
 using Dashboard.DataBase;
 using System.Globalization;
 using System.IO;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Runtime.InteropServices.ComTypes;
+
+using static Dashboard.UI.Controls.DataInfoPresenterEnum;
 
 namespace Dashboard.UI.Pages
 {
-    /// <summary>
-    /// Interaction logic for MainPage.xaml
-    /// </summary>
-
+    // TODO: This page is a pure sample of an impure bloated class, CLEAN THIS MESS
     public partial class MainPage : Page
     {
         public MainPage()
@@ -48,6 +37,7 @@ namespace Dashboard.UI.Pages
         private readonly PersianCalendar Calendar = new PersianCalendar();
 
         public StringBuilder RecivedData { get; } = new StringBuilder();
+
         public string LastAdded { get; set; } = "";
 
         public string CurrentWeight { get; set; } = "0";
@@ -67,24 +57,12 @@ namespace Dashboard.UI.Pages
             }
         }
 
-        public bool CheckIfWeightSpanValid(string weight)
-        {
-            //bool result = int.TryParse(weight, out int weightValue);
-            //bool valueIsTooHigh = false;
-            //if (result && weightValue > tooHighThersold)
-            //    valueIsTooHigh = true;
-
-            //return valueIsTooHigh;
-
-            return weight.Length > 2;
-        }
-
-        private WebClient GeneralWebClient { get; } = new WebClient();
+        public bool CheckIfWeightSpanValid(string weight) => weight.Length > 2;
 
         public ObservableCollection<DataInfoPresenter> InfoPresenters
         {
-            get { return (ObservableCollection<DataInfoPresenter>)GetValue(InfoPresentersProperty); }
-            set { SetValue(InfoPresentersProperty, value); }
+            get => (ObservableCollection<DataInfoPresenter>)GetValue(InfoPresentersProperty);
+            set => SetValue(InfoPresentersProperty, value);
         }
 
         public static readonly DependencyProperty InfoPresentersProperty =
@@ -92,8 +70,8 @@ namespace Dashboard.UI.Pages
 
         public ObservableCollection<DataInfoPresenter> SentInfoPresenters
         {
-            get { return (ObservableCollection<DataInfoPresenter>)GetValue(SentInfoPresentersProperty); }
-            set { SetValue(SentInfoPresentersProperty, value); }
+            get => (ObservableCollection<DataInfoPresenter>)GetValue(SentInfoPresentersProperty);
+            set => SetValue(SentInfoPresentersProperty, value);
         }
 
         public static readonly DependencyProperty SentInfoPresentersProperty =
@@ -101,8 +79,8 @@ namespace Dashboard.UI.Pages
 
         public ObservableCollection<PackView> PackPresenters
         {
-            get { return (ObservableCollection<PackView>)GetValue(PackPresentersProperty); }
-            set { SetValue(PackPresentersProperty, value); }
+            get => (ObservableCollection<PackView>)GetValue(PackPresentersProperty);
+            set => SetValue(PackPresentersProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for PackPresenters.  This enables animation, styling, binding, etc...
@@ -140,7 +118,8 @@ namespace Dashboard.UI.Pages
                     try
                     {
                         PortManager.GlobalPort = new SerialPort(comPortMonitor, baudRate, parity, databits, stopbits);
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show($"Something is wrong with serial port: {ex.Message}");
                         return;
@@ -148,24 +127,26 @@ namespace Dashboard.UI.Pages
 
                     MonitoringPortNameBlock.Text = $"{comPortMonitor} is available";
                     MonitoringPortNameBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF04B163"));
-                    StatusBlock.Text = ( PortManager.GlobalPort.IsOpen ) ? "Open" : "Not Open";
+                    StatusBlock.Text = (PortManager.GlobalPort.IsOpen) ? "Open" : "Not Open";
                     try
                     {
                         if (!PortManager.GlobalPort.IsOpen)
                             PortManager.GlobalPort.Open();
-                        StatusBlock.Text = ( PortManager.GlobalPort.IsOpen ) ? "Open" : "Not Open";
+                        StatusBlock.Text = (PortManager.GlobalPort.IsOpen) ? "Open" : "Not Open";
 
                         PortManager.ReaderThread.Start();
                         PortManager.ParserThread.Start();
                         PortManager.ElementsSender.Start();
                         PortManager.ItemCreatorThread.Start();
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show($"Error occured:\n{ex.Message}\n\nApplication will shutdown.\nClose any other applications that are using this port and try again.");
                         if (MessageBox.Show("Shutdown application?", "Error", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                             Application.Current.Shutdown();
                     }
-                } else
+                }
+                else
                 {
                     MonitoringPortNameBlock.Text = $"{comPortMonitor} is not available";
                     MonitoringPortNameBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF5858"));
@@ -195,7 +176,8 @@ namespace Dashboard.UI.Pages
 
                     Thread.Sleep(100);
                 }
-            } catch { }
+            }
+            catch { }
         }
 
         /// <summary>
@@ -255,7 +237,8 @@ namespace Dashboard.UI.Pages
 
                     Thread.Sleep(50);
                 }
-            } catch { }
+            }
+            catch { }
         }
 
         private async void TrySendingDataToServer()
@@ -360,7 +343,8 @@ namespace Dashboard.UI.Pages
                     {
                         nullFirstUnsend++;
                     }
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     if (showErr)
                     {
@@ -459,7 +443,8 @@ namespace Dashboard.UI.Pages
                 try
                 {
                     File.WriteAllText(path, weight);
-                } catch { }
+                }
+                catch { }
             }
         }
 
@@ -469,6 +454,8 @@ namespace Dashboard.UI.Pages
 
         private void CurrentWeightBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // UNDONE: This sneaky event handler is legacy code, it have used to generate fake items for debugging purposes
+            #region Fake Data Generator
             //var random = new Random();
 
             //for (int i = 0; i < 100; i++)
@@ -502,6 +489,7 @@ namespace Dashboard.UI.Pages
 
             //    InfoPresenters.Add(d);
             //}
+            #endregion
         }
 
         private void SentInfoDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -510,7 +498,8 @@ namespace Dashboard.UI.Pages
             {
                 SentInfoPresenters = SentInfoDatePicker.GetSentItemsForThisDate();
                 SentInfoItemsCountBlock.Text = SentInfoPresenters.Count + " items";
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 App.WriteLog(ex);
             }
@@ -529,7 +518,8 @@ namespace Dashboard.UI.Pages
             try
             {
                 DataBaseHelper.Entities.SaveChanges();
-            } catch /*(DbEntityValidationException ex)*/
+            }
+            catch /*(DbEntityValidationException ex)*/
             {
                 //foreach (var entityValidationErrors in ex.EntityValidationErrors)
                 //{
@@ -546,7 +536,8 @@ namespace Dashboard.UI.Pages
             try
             {
                 DataBaseHelper.Entities.SaveChanges();
-            } catch /*(DbEntityValidationException ex)*/
+            }
+            catch /*(DbEntityValidationException ex)*/
             {
                 //foreach (var entityValidationErrors in ex.EntityValidationErrors)
                 //{
@@ -563,7 +554,8 @@ namespace Dashboard.UI.Pages
             try
             {
                 DataBaseHelper.Entities.SaveChanges();
-            } catch /*(DbEntityValidationException ex)*/
+            }
+            catch /*(DbEntityValidationException ex)*/
             {
                 //foreach (var entityValidationErrors in ex.EntityValidationErrors)
                 //{
@@ -581,15 +573,9 @@ namespace Dashboard.UI.Pages
         }
 
         #region Pack View Refersh
-        private void PackDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            PackViewRefreshRequest();
-        }
+        private void PackDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) => PackViewRefreshRequest();
 
-        private void PackViewRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            PackViewRefreshRequest();
-        }
+        private void PackViewRefresh_Click(object sender, RoutedEventArgs e) => PackViewRefreshRequest();
 
         public void PackViewRefreshRequest()
         {
@@ -600,17 +586,17 @@ namespace Dashboard.UI.Pages
 
         private void PackPresenters_Update()
         {
-                if (PackPresenters.Count > 0)
-                    PackPrintNoItemWarn.Visibility = Visibility.Collapsed;
-                else
-                    PackPrintNoItemWarn.Visibility = Visibility.Visible;
+            if (PackPresenters.Count > 0)
+                PackPrintNoItemWarn.Visibility = Visibility.Collapsed;
+            else
+                PackPrintNoItemWarn.Visibility = Visibility.Visible;
         }
 
         #endregion Pack View Refresh
 
         private async void PackDetailsManualAdd_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show(
+            if (MessageBox.Show(
                 $"Do you want to manual fetch data from \"{App.CurrentApp.AppConfiguration.PackDetailsFileAddress}\"?",
                 "Warning",
                 MessageBoxButton.YesNo,

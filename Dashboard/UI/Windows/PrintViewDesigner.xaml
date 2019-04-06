@@ -45,6 +45,7 @@
                         <DropShadowEffect BlurRadius="10" Color="#FF4F4F4F" />
                     </Grid.Effect>
                 </Grid>
+                <!--  TODO: #XAML_DESIGN_DUP Duplicate Xaml 1  -->
                 <FixedPage
                     x:Name="DESIGN_FixedPage"
                     Width="357"

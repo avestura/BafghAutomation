@@ -20,15 +20,12 @@ namespace Dashboard.UI.Controls
     /// </summary>
     public partial class Alert : UserControl
     {
-        public Alert()
-        {
-            InitializeComponent();
-        }
+        public Alert() => InitializeComponent();
 
         public AlertTypes AlertType
         {
-            get { return (AlertTypes)GetValue(AlertTypeProperty); }
-            set { SetValue(AlertTypeProperty, value); }
+            get => (AlertTypes)GetValue(AlertTypeProperty);
+            set => SetValue(AlertTypeProperty, value);
         }
 
         public static readonly DependencyProperty AlertTypeProperty =
@@ -36,8 +33,8 @@ namespace Dashboard.UI.Controls
 
         public bool Waiting
         {
-            get { return (bool)GetValue(WaitingProperty); }
-            set { SetValue(WaitingProperty, value); }
+            get => (bool)GetValue(WaitingProperty);
+            set => SetValue(WaitingProperty, value);
         }
 
         public static readonly DependencyProperty WaitingProperty =

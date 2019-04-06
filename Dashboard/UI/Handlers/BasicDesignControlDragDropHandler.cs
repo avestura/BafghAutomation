@@ -13,6 +13,7 @@ using System.Windows.Threading;
 
 namespace Dashboard.UI.Handlers
 {
+    // This class is beyond science, modify (and use) it t your own risk
     public class BasicDesignControlDragDropHandler
     {
         public bool IsDragging { get; private set; }

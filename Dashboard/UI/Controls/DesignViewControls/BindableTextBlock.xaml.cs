@@ -25,30 +25,31 @@ namespace Dashboard.UI.Controls.DesignViewControls
     {
         public bool Designing
         {
-            get { return (bool)GetValue(DesigningProperty); }
-            set { SetValue(DesigningProperty, value); }
+            get => (bool)GetValue(DesigningProperty);
+            set => SetValue(DesigningProperty, value);
         }
+
         public static readonly DependencyProperty DesigningProperty =
             DependencyProperty.Register("Designing", typeof(bool), typeof(BindableTextBlock), new PropertyMetadata(false));
 
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
+
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(BindableTextBlock), new PropertyMetadata("(Unbound Text)"));
 
         public BindableTextType Type { get;  }
 
-        private bool disableContextMenu = false;
+        private readonly bool disableContextMenu = false;
 
         public BindableTextBlock(BindableTextType type, bool disableContextMenu = false)
         {
             Type = type;
             this.disableContextMenu = disableContextMenu;
             InitializeComponent();
-
         }
 
         private void Thumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)

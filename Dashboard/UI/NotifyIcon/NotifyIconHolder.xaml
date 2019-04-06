@@ -28,8 +28,8 @@
                         </ControlTemplate>
                     </MenuItem.Template>
                 </MenuItem>
-                <MenuItem Header="Open Application" Click="MenuItem_Click" />
-                <MenuItem Header="Shutdown Application" Click="MenuItem_Click_1" />
+                <MenuItem Header="Open Application" Click="OpenApp_Click" />
+                <MenuItem Header="Shutdown Application" Click="Shutdown_Click" />
             </ContextMenu>
         </nf:TaskbarIcon.ContextMenu>
     </nf:TaskbarIcon>

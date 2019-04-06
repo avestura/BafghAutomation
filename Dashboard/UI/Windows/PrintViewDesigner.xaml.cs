@@ -77,12 +77,15 @@ namespace Dashboard.UI.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDesign();
-
+            LoadSavedDesign();
         }
 
-        public void LoadDesign()
+        public void LoadSavedDesign()
         {
+            /// TODO: Defined XAML for this designer is as same as the one in
+            /// <see cref="Dashboard.UI.Assets.PrintAssets.PrintResource"/>. Make them a
+            /// Single one to handle it better. See Bookmarks with tag #XAML_DESIGN_DUP for more info
+
             var conf = App.CurrentApp.AppConfiguration.DesignModel;
             bool isDefaultImage = string.IsNullOrEmpty(conf.ImageBackgroundSource);
             var imgUri = isDefaultImage ?

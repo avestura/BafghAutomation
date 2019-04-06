@@ -19,6 +19,7 @@ namespace Dashboard.Helpers
     {
         public static FixedPage GetFixedPage(PageReportData data, bool reverse, bool noBackground)
         {
+            // TODO: Remove HardCoded UI Query
             var DESIGN_FixedPage = new PrintResource().Resources["fPage"] as FixedPage;
             var DESIGN_Image = DESIGN_FixedPage.Children[0] as System.Windows.Controls.Image;
             var DESIGN_Canvas = DESIGN_FixedPage.Children[1] as Canvas;
@@ -46,12 +47,10 @@ namespace Dashboard.Helpers
             }
 
             return DESIGN_FixedPage;
-
         }
 
         private static void LoadDesign(FixedPage DESIGN_FixedPage, Canvas DESIGN_Canvas, Image DESIGN_Image)
         {
-
             var conf = App.CurrentApp.AppConfiguration.DesignModel;
             bool isDefaultImage = string.IsNullOrEmpty(conf.ImageBackgroundSource) || conf.ImageBackgroundSource == "pack://application:,,,/Dashboard;component/Resources/Images/ReportDefault - NO.png";
             var imgUri = isDefaultImage ?

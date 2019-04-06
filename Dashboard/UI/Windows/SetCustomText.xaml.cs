@@ -19,13 +19,9 @@ namespace Dashboard.UI.Windows
     /// </summary>
     public partial class SetCustomText : Window
     {
-
         public string Result { get; private set; }
 
-        public SetCustomText()
-        {
-            InitializeComponent();
-        }
+        public SetCustomText() => InitializeComponent();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -10,13 +10,13 @@ namespace Dashboard.UI.Pages
     /// </summary>
     public partial class PrintPage : Page
     {
-        private string length;
-        private string weight;
-        private string stdNo;
-        private string proc;
-        private string grade;
-        private string dia;
-        private string barcodeData;
+        private readonly string length;
+        private readonly string weight;
+        private readonly string stdNo;
+        private readonly string proc;
+        private readonly string grade;
+        private readonly string dia;
+        private readonly string barcodeData;
 
         public PrintPage(string len, string weight, string stdNo, string proc, string grade, string dia, string barcodeData)
         {
@@ -50,8 +50,8 @@ namespace Dashboard.UI.Pages
             },
             reverse: false,
             noBackground: false);
-            // False because PrintPage handles it on its own, using documnet viewer print function
-
+            // Those 'false'es are because PrintPage handles it on its own, using documnet viewer print function
+            // doesn're require getting info from settings
 
             Document.Pages.Add(new PageContent()
             {

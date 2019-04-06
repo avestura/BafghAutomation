@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <!--  TODO: #XAML_DESIGN_DUP Duplicate Xaml 2  -->
         <FixedPage
             x:Key="fPage"
             x:Name="DESIGN_FixedPage"
