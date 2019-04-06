@@ -171,6 +171,9 @@
     <Compile Include="UI\Pages\PrintPage.xaml.cs">
       <DependentUpon>PrintPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Windows\PrintViewDesigner.xaml.cs">
       <DependentUpon>PrintViewDesigner.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Pages\PrintPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
