@@ -21,7 +21,7 @@ namespace Dashboard
 
         public string BarCodeData
         {
-            get { return barcodeData; }
+            get => barcodeData;
             set
             {
                 barcodeData = value;
@@ -29,14 +29,11 @@ namespace Dashboard
             }
         }
 
-        public string BarCodeUI
-        {
-            get { return $"*{barcodeData}*"; }
-        }
+        public string BarCodeUI => $"*{barcodeData}*";
 
         public string Length
         {
-            get { return length; }
+            get => length;
             set
             {
                 length = value;
@@ -46,7 +43,7 @@ namespace Dashboard
 
         public string Weight
         {
-            get { return weight; }
+            get => weight;
             set
             {
                 weight = value;
@@ -56,7 +53,7 @@ namespace Dashboard
 
         public string StdNo
         {
-            get { return stdNo; }
+            get => stdNo;
             set
             {
                 stdNo = value;
@@ -66,7 +63,7 @@ namespace Dashboard
 
         public string Proc
         {
-            get { return proc; }
+            get => proc;
             set
             {
                 proc = value;
@@ -76,7 +73,7 @@ namespace Dashboard
 
         public string Grade
         {
-            get { return grade; }
+            get => grade;
             set
             {
                 grade = value;
@@ -86,7 +83,7 @@ namespace Dashboard
 
         public string Dia
         {
-            get { return dia; }
+            get => dia;
             set
             {
                 dia = value;
@@ -96,10 +93,7 @@ namespace Dashboard
 
         public Uri ImageSource
         {
-            get
-            {
-                return imageSource;
-            }
+            get => imageSource;
             set
             {
                 imageSource = value;
@@ -107,21 +101,9 @@ namespace Dashboard
             }
         }
 
-        public double SceneHeight
-        {
-            get
-            {
-                return 472 * scaleFactor;
-            }
-        }
+        public double SceneHeight => 472 * scaleFactor;
 
-        public double SceneWidth
-        {
-            get
-            {
-                return 354 * scaleFactor;
-            }
-        }
+        public double SceneWidth => 354 * scaleFactor;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
