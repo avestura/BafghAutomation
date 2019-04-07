@@ -1,4 +1,5 @@
 ﻿using Dashboard.Helpers;
+using Dashboard.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -38,7 +39,7 @@ namespace Dashboard.UI.Pages
 
         public void InitializeResourcePage()
         {
-            var DESIGN_FixedPage = DocumentHelper.GetFixedPage(new PageReportData
+            var DESIGN_FixedPage = DocumentHelper.GetFixedPage(new PageReportModel
             {
                 Dia = dia,
                 Grade = grade,

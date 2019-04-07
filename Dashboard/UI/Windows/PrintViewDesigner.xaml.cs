@@ -111,6 +111,7 @@ namespace Dashboard.UI.Windows
                     Height = item.Height,
                     Tag = (item.IsBound) ? $"BINDTO:{item.BindingTag}" : "",
                     Text = item.Text,
+                    TextFontWeight = item.Type == BindableTextType.Normal ? FontWeights.Bold : FontWeights.Normal,
                     Designing = true
                 };
                 if (item.IsBound)

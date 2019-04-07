@@ -1,4 +1,5 @@
 ﻿using Dashboard.Helpers;
+using Dashboard.Models;
 using Dashboard.UI.Pages;
 using System;
 using System.Windows;
@@ -116,7 +117,7 @@ namespace Dashboard.UI.Controls
         {
             try
             {
-                var fpage = DocumentHelper.GetFixedPage(new PageReportData
+                var fpage = DocumentHelper.GetFixedPage(new PageReportModel
                 {
                     Length = Length,
                     Weight = Weight,

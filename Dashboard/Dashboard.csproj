@@ -137,7 +137,7 @@
     <Compile Include="IO\PortManager.cs" />
     <Compile Include="Models\BinableTextboxSaveModel.cs" />
     <Compile Include="UI\Adorners\DesignAdorner.cs" />
-    <Compile Include="UI\Assets\PrintAssets\PageReportData.cs" />
+    <Compile Include="Models\PageReportData.cs" />
     <Compile Include="UI\Assets\PrintAssets\PrintResource.xaml.cs">
       <DependentUpon>PrintResource.xaml</DependentUpon>
     </Compile>
@@ -263,6 +263,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="Readme.md" />
+    <Resource Include="Resources\Fonts\IDAutomationHC39M Code 39 Barcode.ttf" />
+    <Resource Include="Resources\Fonts\code128.ttf" />
+    <Resource Include="Resources\Fonts\UPC-A.ttf" />
     <Resource Include="Resources\Fonts\fre3of9x.ttf" />
     <Resource Include="Resources\Fonts\free3of9.ttf" />
   </ItemGroup>

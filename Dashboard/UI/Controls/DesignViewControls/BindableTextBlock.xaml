@@ -55,7 +55,7 @@
             <TextBlock
                 x:Name="DESIGN_Textblock"
                 FontSize="15"
-                FontWeight="Bold"
+                FontWeight="{Binding TextFontWeight, ElementName=_this}"
                 Text="{Binding Text, ElementName=_this}" />
         </Viewbox>
 

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dashboard
+namespace Dashboard.Models
 {
-    public class PageReportData : INotifyPropertyChanged
+    public class PageReportModel : INotifyPropertyChanged
     {
         private string length;
         private string weight;

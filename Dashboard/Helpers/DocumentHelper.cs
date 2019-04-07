@@ -1,4 +1,5 @@
-﻿using Dashboard.UI.Assets.PrintAssets;
+﻿using Dashboard.Models;
+using Dashboard.UI.Assets.PrintAssets;
 using Dashboard.UI.Controls.DesignViewControls;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,16 @@ namespace Dashboard.Helpers
 
     public static class DocumentHelper
     {
-        public static FixedPage GetFixedPage(PageReportData data, bool reverse, bool noBackground)
+        public static FontFamily BarcodeFont => App.Current.Resources["Barcode3of9"] as FontFamily;
+
+        public static FixedPage GetFixedPage(PageReportModel data, bool reverse, bool noBackground)
         {
             // TODO: Remove HardCoded UI Query
             var DESIGN_FixedPage = new PrintResource().Resources["fPage"] as FixedPage;
             var DESIGN_Image = DESIGN_FixedPage.Children[0] as System.Windows.Controls.Image;
             var DESIGN_Canvas = DESIGN_FixedPage.Children[1] as Canvas;
 
-            DESIGN_Canvas.DataContext = new PageReportData()
+            DESIGN_Canvas.DataContext = new PageReportModel()
             {
                 Dia = data.Dia,
                 Grade = data.Grade,
@@ -72,7 +75,8 @@ namespace Dashboard.Helpers
                     Tag = (item.IsBound) ? $"BINDTO:{item.BindingTag}" : "",
                     Designing = false,
                     FontSize = 20,
-                    FontFamily = (item.Type == BindableTextType.Normal) ? new FontFamily("Times New Roman")  : App.Current.Resources["BarcodeExtended"] as FontFamily
+                    TextFontWeight = item.Type == BindableTextType.Normal ? FontWeights.Bold : FontWeights.Normal,
+                    FontFamily = (item.Type == BindableTextType.Normal) ? new FontFamily("Times New Roman")  : DocumentHelper.BarcodeFont
             };
                 if (item.IsBound)
                 {

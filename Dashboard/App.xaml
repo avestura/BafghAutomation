@@ -28,8 +28,11 @@
                 </ResourceDictionary>
 
                 <ResourceDictionary>
-                    <FontFamily x:Key="Barcode">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9</FontFamily>
-                    <FontFamily x:Key="BarcodeExtended">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9 Extended</FontFamily>
+                    <FontFamily x:Key="Barcode3of9">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9</FontFamily>
+                    <FontFamily x:Key="Barcode3of9Extended">pack://application:,,,/Dashboard;component/Resources/Fonts/#free 3 of 9 Extended</FontFamily>
+                    <FontFamily x:Key="BarcodeUPC">pack://application:,,,/Dashboard;component/Resources/Fonts/#UPC-A</FontFamily>
+                    <FontFamily x:Key="Barcode128">pack://application:,,,/Dashboard;component/Resources/Fonts/#Code 128</FontFamily>
+                    <FontFamily x:Key="BarcodeCode39">pack://application:,,,/Dashboard;component/Resources/Fonts/#IDAHC39M Code 39 Barcode</FontFamily>
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
