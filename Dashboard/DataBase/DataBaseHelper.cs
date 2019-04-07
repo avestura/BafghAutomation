@@ -125,9 +125,9 @@ namespace Dashboard.DataBase
                     var viewPresenter = new PackView(
                         PackNumber: item.PackNo,
                         DateAndTime: $"{year}/{month}/{day} at {itemHour}:{itemMin}",
-                        Weight: item.Weight + " kg",
+                        Weight: item.Weight,
                         ItemCode: item.ItemCode,
-                        Length: itemCodeInfo.Length + " meter",
+                        Length: itemCodeInfo.Length,
                         Diameter: itemCodeInfo.Diameter,
                         Grade: itemCodeInfo.SignId)
                     {
