@@ -12,6 +12,8 @@ namespace Dashboard.UI.Controls
 {
     public class CustomPrintDocumentViewer : DocumentViewer
     {
+
+        public event EventHandler<PrintCompletedEventArgs> PrintCompleted;
         public bool DocumentReversed { get; set; }
 
         public bool DocumentBackgroundRemoved { get; set; }
@@ -20,7 +22,7 @@ namespace Dashboard.UI.Controls
         {
             var conf = App.CurrentApp.AppConfiguration;
             // TODO: Remove HardCoded UI Query
-            if( (conf.PrintWithRemovedBackground || conf.PrintReversed)
+            if ((conf.PrintWithRemovedBackground || conf.PrintReversed)
                 && Document is FixedDocument f
                 && f.Pages.First() is PageContent page1
                 && page1.Child is FixedPage fx
@@ -42,7 +44,15 @@ namespace Dashboard.UI.Controls
             {
                 base.OnPrintCommand();
             }
+            OnPrintCompleted(this, new PrintCompletedEventArgs());
+        }
 
+        private void OnPrintCompleted(object sender, PrintCompletedEventArgs e)
+        {
+            PrintCompleted?.Invoke(sender, e);
         }
     }
+
+    public class PrintCompletedEventArgs : EventArgs {}
+
 }

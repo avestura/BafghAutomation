@@ -13,11 +13,12 @@ type Good =
 [<CLIMutable>]
 type Pack =
     { Id : int
-      ItemCode : string
-      Weight   : string
-      Time     : string
-      Date     : string
-      PackNo   : string }
+      ItemCode  : string
+      Weight    : string
+      Time      : string
+      Date      : string
+      PackNo    : string
+      IsPrinted : bool }
 
 [<CLIMutable>]
 type SentItem =

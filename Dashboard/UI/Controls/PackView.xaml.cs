@@ -1,4 +1,5 @@
-﻿using Dashboard.Helpers;
+﻿using Dashboard.DataBase;
+using Dashboard.Helpers;
 using Dashboard.Models;
 using Dashboard.UI.Pages;
 using System;
@@ -15,6 +16,8 @@ namespace Dashboard.UI.Controls
     /// </summary>
     public partial class PackView : UserControl
     {
+        public int Id { get; }
+
         public string DateAndTime
         {
             get => (string)GetValue(DateAndTimeProperty);
@@ -78,17 +81,31 @@ namespace Dashboard.UI.Controls
         public static readonly DependencyProperty LengthProperty =
             DependencyProperty.Register("Length", typeof(string), typeof(PackView), null);
 
+
+
+        public bool IsPrinted
+        {
+            get => (bool)GetValue(IsPrintedProperty);
+            set => SetValue(IsPrintedProperty, value);
+        }
+
+        public static readonly DependencyProperty IsPrintedProperty =
+            DependencyProperty.Register("IsPrinted", typeof(bool), typeof(PackView), new PropertyMetadata(false));
+
         public PackView(
+            int id,
             string PackNumber = "",
             string DateAndTime = "",
             string Weight = "",
             string ItemCode = "",
             string Length = "",
             string Diameter = "",
-            string Grade = "")
+            string Grade = "",
+            bool IsPrinted = false)
         {
             InitializeComponent();
 
+            this.Id = id;
             this.PackNumber = PackNumber;
             this.DateAndTime = DateAndTime;
             this.Weight = Weight;
@@ -96,12 +113,14 @@ namespace Dashboard.UI.Controls
             this.Diameter = Diameter;
             this.Grade = Grade;
             this.Length = Length;
+            this.IsPrinted = IsPrinted;
         }
 
         private void Preview_Click(object sender, RoutedEventArgs e)
         {
             App.CurrentApp.AppWindow.MainFrame.Navigate(
                 new PrintPage(
+                    Id,
                     Length,
                     Weight,
                     App.CurrentApp.AppConfiguration.PrintStdNo,
@@ -138,11 +157,14 @@ namespace Dashboard.UI.Controls
                 if (pdResult != null && pdResult.Value)
                 {
                     printDialog.PrintDocument(doc.DocumentPaginator, "HOMATEC");
+                    IsPrinted = true;
+                    DataBaseHelper.Entities.Packs.Find(Id).IsPrinted = true;
+                    DataBaseHelper.Entities.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Can't print. Reason:\n{ex.Message}");
+                MessageBox.Show($"Can't print or save changes into database. Reason:\n{ex.Message}");
             }
         }
     }

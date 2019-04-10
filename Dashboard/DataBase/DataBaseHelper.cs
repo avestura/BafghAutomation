@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+using static BafghAutomation.Engine.Utils;
+
 namespace Dashboard.DataBase
 {
     public static class DataBaseHelper
@@ -96,16 +98,18 @@ namespace Dashboard.DataBase
             string month = pc.GetMonth(dp.SelectedDate.Value).ToString("00");
             string day = pc.GetDayOfMonth(dp.SelectedDate.Value).ToString("00");
 
-            return GetPackItems(year, month, day);
+            return GetPackItems(false, (year, month, day));
         }
 
-        public static ObservableCollection<PackView> GetPackItems(string year, string month, string day)
+        public static ObservableCollection<PackView> GetAllPackViews() => GetPackItems(true, ("", "", ""));
+
+        public static ObservableCollection<PackView> GetPackItems(bool getAll, (string year, string month, string day) date)
         {
             var result = new ObservableCollection<PackView>();
 
-            string dateToFind = year + month + day;
+            string dateToFind = date.year + date.month + date.day;
 
-            var extractedData = from e in Entities.Packs where ( e.Date == dateToFind ) select e;
+            var extractedData = getAll ? Entities.Packs : from e in Entities.Packs where ( e.Date == dateToFind ) select e;
 
             foreach (var item in extractedData)
             {
@@ -113,23 +117,21 @@ namespace Dashboard.DataBase
                 {
                     var itemCodeInfo = (from ic in Entities.Goods where ( ic.ItemCode == item.ItemCode ) select ic).First();
 
-                    string itemHour = "";
-                    string itemMin = "";
+                    (string year, string month, string day) =
+                        getAll ? GetDateFromString(item.Date) : (date.year, date.month, date.day);
 
-                    try
-                    {
-                        itemHour = item.Time.Substring(0, 2);
-                        itemMin = item.Time.Substring(2, 2);
-                    } catch { }
+                    (string hour, string min) = GetTimeFromString(item.Time);
 
                     var viewPresenter = new PackView(
+                        id: item.Id,
                         PackNumber: item.PackNo,
-                        DateAndTime: $"{year}/{month}/{day} at {itemHour}:{itemMin}",
+                        DateAndTime: $"{year}/{month}/{day} at {hour}:{min}",
                         Weight: item.Weight,
                         ItemCode: item.ItemCode,
                         Length: itemCodeInfo.Length,
                         Diameter: itemCodeInfo.Diameter,
-                        Grade: itemCodeInfo.SignId)
+                        Grade: itemCodeInfo.SignId,
+                        IsPrinted: item.IsPrinted)
                     {
                         Margin = new Thickness(10,10,10,5)
                     }

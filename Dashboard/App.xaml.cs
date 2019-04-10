@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -115,29 +116,36 @@ namespace Dashboard
                 content = content.Replace("\n", string.Empty);
                 string[] splitedData = content.Split(',');
 
+                /// Input Format: 12345689,13980121,1210,1260,7080130002
+
                 if (splitedData.Length >= 5)
                 {
                     string packNumber = splitedData[0];
-                    string dateString = splitedData[1];
-                    string timeString = splitedData[2];
-                    string weight = splitedData[3];
-                    string itemCode = splitedData[4];
 
-                    DataBaseHelper.Entities.Packs.Add(new Pack(
-                        id: 0,
-                        itemCode: itemCode,
-                        weight: weight,
-                        time: timeString,
-                        date: dateString,
-                        packNo: packNumber));
-
-                    DataBaseHelper.Entities.SaveChanges();
-
-                    try
+                    if (!DataBaseHelper.Entities.Packs.Any(p => p.PackNo == packNumber))
                     {
-                        MainPage.Dispatcher.Invoke(() => MainPage.PackViewRefreshRequest());
+                        string dateString = splitedData[1];
+                        string timeString = splitedData[2];
+                        string weight = splitedData[3];
+                        string itemCode = splitedData[4];
+
+                        DataBaseHelper.Entities.Packs.Add(new Pack(
+                            id: 0,
+                            itemCode: itemCode,
+                            weight: weight,
+                            time: timeString,
+                            date: dateString,
+                            packNo: packNumber,
+                            isPrinted: false));
+
+                        DataBaseHelper.Entities.SaveChanges();
+
+                        try
+                        {
+                            MainPage.Dispatcher.Invoke(() => MainPage.PackViewRefreshRequest());
+                        }
+                        catch { }
                     }
-                    catch { }
                 }
             }
             catch (Exception ex) { MessageBox.Show("Error occured with new pack: " + ex.Message); }

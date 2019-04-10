@@ -159,7 +159,7 @@ namespace Dashboard.UI.Pages
 
                 ItemsCodeDataGrid.ItemsSource = DataBaseHelper.Entities.Goods.Local;
 
-                PackPresenters_Update();
+                PackViewRefreshRequest();
             }
         }
 
@@ -575,11 +575,18 @@ namespace Dashboard.UI.Pages
         #region Pack View Refersh
         private void PackDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) => PackViewRefreshRequest();
 
+        private void FilterTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(IsLoaded) PackViewRefreshRequest();
+        }
+
         private void PackViewRefresh_Click(object sender, RoutedEventArgs e) => PackViewRefreshRequest();
 
         public void PackViewRefreshRequest()
         {
-            PackPresenters = PackDatePicker.GetPackItemsForThisDate();
+            bool showAllItems = (FilterTypeCombo.SelectedItem is ComboBoxItem c && c.Tag.ToString() == "ShowAll");
+            PackPresenters =
+                showAllItems ? DataBaseHelper.GetAllPackViews()  : PackDatePicker.GetPackItemsForThisDate();
             PackItemsCountBlock.Text = PackPresenters.Count + " items";
             PackPresenters_Update();
         }
@@ -607,5 +614,7 @@ namespace Dashboard.UI.Pages
                 await App.CurrentApp.RecivePackDetailsDataAsync();
             }
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Dashboard.Helpers;
+﻿using BafghAutomation.Engine.Models;
+using Dashboard.DataBase;
+using Dashboard.Helpers;
 using Dashboard.Models;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,7 @@ namespace Dashboard.UI.Pages
     /// </summary>
     public partial class PrintPage : Page
     {
+        private readonly int id;
         private readonly string length;
         private readonly string weight;
         private readonly string stdNo;
@@ -19,10 +22,11 @@ namespace Dashboard.UI.Pages
         private readonly string dia;
         private readonly string barcodeData;
 
-        public PrintPage(string len, string weight, string stdNo, string proc, string grade, string dia, string barcodeData)
+        public PrintPage(int id, string len, string weight, string stdNo, string proc, string grade, string dia, string barcodeData)
         {
             InitializeComponent();
 
+            this.id = id;
             this.length = len;
             this.weight = weight;
             this.stdNo = stdNo;
@@ -35,6 +39,22 @@ namespace Dashboard.UI.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeResourcePage();
+
+            DocViewer.PrintCompleted += DocViewer_PrintCompleted;
+        }
+
+        private void DocViewer_PrintCompleted(object sender, Controls.PrintCompletedEventArgs e)
+        {
+            try
+            {
+                if(DataBaseHelper.Entities.Packs.Find(id) is Pack p)
+                {
+                    p.IsPrinted = true;
+                    DataBaseHelper.Entities.SaveChanges();
+                    App.CurrentApp.MainPage.PackViewRefreshRequest();
+                }
+            }
+            catch { }
         }
 
         public void InitializeResourcePage()

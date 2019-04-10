@@ -174,10 +174,29 @@
                                                 <TextBlock Margin="0,0,10,0">Refresh</TextBlock>
                                             </StackPanel>
                                         </Button>
+                                        <ComboBox
+                                            x:Name="FilterTypeCombo"
+                                            Margin="10,0,0,0"
+                                            BorderThickness="0,0,0,2"
+                                            SelectedIndex="0"
+                                            SelectionChanged="FilterTypeCombo_SelectionChanged">
+                                            <ComboBoxItem Tag="ShowAll">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:ImageAwesome Width="10" Icon="Database" />
+                                                    <TextBlock Margin="5,0">Show All</TextBlock>
+                                                </StackPanel>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Tag="Filter">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:ImageAwesome Width="10" Icon="Calendar" />
+                                                    <TextBlock Margin="5,0">Filter by date</TextBlock>
+                                                </StackPanel>
+                                            </ComboBoxItem>
+                                        </ComboBox>
                                         <toolkit:DatePicker
                                             x:Name="PackDatePicker"
                                             MinWidth="150"
-                                            Margin="10,0,0,0"
+                                            Margin="5,0,0,0"
                                             BorderThickness="0,0,0,2"
                                             SelectedDateChanged="PackDatePicker_SelectedDateChanged" />
                                     </StackPanel>

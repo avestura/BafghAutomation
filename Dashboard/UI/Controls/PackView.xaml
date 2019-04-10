@@ -2,6 +2,7 @@
     x:Class="Dashboard.UI.Controls.PackView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:Dashboard.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:local="clr-namespace:Dashboard.UI.Controls"
@@ -68,6 +69,24 @@
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
+                    <StackPanel
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="{Binding IsPrinted, ElementName=control, Converter={StaticResource BoolToVisibility}}">
+                        <fa:ImageAwesome
+                            Width="15"
+                            Foreground="#FF0C6E54"
+                            Icon="Print" />
+                        <TextBlock
+                            Margin="2,0"
+                            Cursor="Help"
+                            FontSize="10"
+                            Foreground="#FF0C6E54"
+                            ToolTip="You have already printed this pack item.">
+                            Already Printed
+                        </TextBlock>
+                    </StackPanel>
                     <Button BorderThickness="0" Click="Preview_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome
