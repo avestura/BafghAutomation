@@ -19,6 +19,9 @@ namespace Dashboard
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool settingOpenedClickedOnce;
+        private bool settingClosedClickedOnce;
+
         public MainWindow()
         {
             App.CurrentApp.AppWindow = this;
@@ -41,12 +44,12 @@ namespace Dashboard
             }
         }
 
-        private bool settingClosedClickedOnce;
 
         private async void SettingsClose_Click(object sender, RoutedEventArgs e)
         {
             if (!settingClosedClickedOnce)
             {
+                settingOpenedClickedOnce = false;
                 settingClosedClickedOnce = true;
 
                 App.CurrentApp.AppConfiguration.SaveSettingsToFile();
@@ -57,17 +60,15 @@ namespace Dashboard
             }
         }
 
-        private readonly bool settingOpenedClickedOnce;
-
         private async void SettingsOpen_Click(object sender, RoutedEventArgs e)
         {
             if (!settingOpenedClickedOnce)
             {
                 SettingsView.Navigate(new SettingsPage());
 
-                settingClosedClickedOnce = true;
+                settingOpenedClickedOnce = true;
                 await Overlay.ShowUsingLinearAnimationAsync(250);
-                settingClosedClickedOnce = false;
+
             }
         }
 
