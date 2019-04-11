@@ -5,16 +5,19 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_BackgroundColor" Value="lightblue" MultiBuildValue="DefaultBuild:powderblue" MsiKey="AI_BackgroundColor"/>
+    <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_RUN_AS_ADMIN" Value="0"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="Dashboard.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="HOMATEC"/>
     <ROW Property="ProductCode" Value="1033:{E41952A2-D8EE-4B2B-A0B7-6BF72E75FA94} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Homatec Bafgh Automation"/>
     <ROW Property="ProductVersion" Value="1.8.11" Type="32"/>
-    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{F73E49D7-84D5-4DDB-8B0A-1EC3349FA613}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -51,8 +54,11 @@
     <ROW Directory="zhHant_Dir" Directory_Parent="Release_Dir" DefaultDir="zh-Hant"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AI_ExePath" ComponentId="{B17B78B6-29FF-42F0-AC6A-B01FC79BE694}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
+    <ROW Component="APPDIR" ComponentId="{3985A348-D27A-4198-B07E-9F826E98D9A8}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="BafghAutomation.Engine.dll" ComponentId="{F27035BF-07A6-4846-8BEA-9807EEF73BD7}" Directory_="Release_Dir" Attributes="0" KeyPath="BafghAutomation.Engine.dll"/>
     <ROW Component="BarcodeWpf.dll" ComponentId="{A4A14D24-E0F3-4E81-9AAA-4CE067BDD4E0}" Directory_="Release_Dir" Attributes="0" KeyPath="BarcodeWpf.dll"/>
+    <ROW Component="Dashboard.VisualElementsManifest.xml" ComponentId="{1BE68160-49F3-404A-8E34-0A59452F4C97}" Directory_="Release_Dir" Attributes="0" KeyPath="Dashboard.VisualElementsManifest.xml"/>
     <ROW Component="Dashboard.exe" ComponentId="{34959ECE-8B56-43E4-B00A-4E8DE668E95B}" Directory_="Release_Dir" Attributes="0" KeyPath="Dashboard.exe"/>
     <ROW Component="Dashboard.exe.config" ComponentId="{1B647923-0C9F-4034-9D0B-5236A1DE90DE}" Directory_="Release_Dir" Attributes="0" KeyPath="Dashboard.exe.config" Type="0"/>
     <ROW Component="EntityFramework.SqlServer.dll" ComponentId="{D31B438D-68FA-4F75-9DB1-5AED22973448}" Directory_="Release_Dir" Attributes="0" KeyPath="EntityFramework.SqlServer.dll"/>
@@ -181,13 +187,15 @@
     <ROW Component="netstandard.dll" ComponentId="{677B3D5F-D73D-46BF-BC51-C986E24F512B}" Directory_="Release_Dir" Attributes="0" KeyPath="netstandard.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="BafghAutomation.Engine.dll BarcodeWpf.dll Dashboard.exe Dashboard.exe.config EntityFramework.SqlServer.dll EntityFramework.dll FSharp.Core.dll FSharp.Core.resources.dll FSharp.Core.resources.dll_1 FSharp.Core.resources.dll_10 FSharp.Core.resources.dll_11 FSharp.Core.resources.dll_12 FSharp.Core.resources.dll_13 FSharp.Core.resources.dll_2 FSharp.Core.resources.dll_3 FSharp.Core.resources.dll_4 FSharp.Core.resources.dll_5 FSharp.Core.resources.dll_6 FSharp.Core.resources.dll_7 FSharp.Core.resources.dll_8 FSharp.Core.resources.dll_9 FontAwesome.WPF.dll HOMATEC Hardcodet.Wpf.TaskbarNotification.dll Microsoft.Win32.Primitives.dll ProductInformation SQLite.Interop.dll SQLite.Interop.dll_1 System.AppContext.dll System.Collections.Concurrent.dll System.Collections.NonGeneric.dll System.Collections.Specialized.dll System.Collections.dll System.ComponentModel.EventBasedAsync.dll System.ComponentModel.Primitives.dll System.ComponentModel.TypeConverter.dll System.ComponentModel.dll System.Console.dll System.Data.Common.dll System.Data.SQLite.EF6.dll System.Data.SQLite.Linq.dll System.Data.SQLite.dll System.Diagnostics.Contracts.dll System.Diagnostics.Debug.dll System.Diagnostics.FileVersionInfo.dll System.Diagnostics.Process.dll System.Diagnostics.StackTrace.dll System.Diagnostics.TextWriterTraceListener.dll System.Diagnostics.Tools.dll System.Diagnostics.TraceSource.dll System.Diagnostics.Tracing.dll System.Drawing.Primitives.dll System.Dynamic.Runtime.dll System.Globalization.Calendars.dll System.Globalization.Extensions.dll System.Globalization.dll System.IO.Compression.ZipFile.dll System.IO.Compression.dll System.IO.FileSystem.DriveInfo.dll System.IO.FileSystem.Primitives.dll System.IO.FileSystem.Watcher.dll System.IO.FileSystem.dll System.IO.IsolatedStorage.dll System.IO.MemoryMappedFiles.dll System.IO.Pipes.dll System.IO.UnmanagedMemoryStream.dll System.IO.dll System.Linq.Expressions.dll System.Linq.Parallel.dll System.Linq.Queryable.dll System.Linq.dll System.Net.Http.dll System.Net.NameResolution.dll System.Net.NetworkInformation.dll System.Net.Ping.dll System.Net.Primitives.dll System.Net.Requests.dll System.Net.Security.dll System.Net.Sockets.dll System.Net.WebHeaderCollection.dll System.Net.WebSockets.Client.dll System.Net.WebSockets.dll System.ObjectModel.dll System.Reflection.Extensions.dll System.Reflection.Primitives.dll System.Reflection.dll System.Resources.Reader.dll System.Resources.ResourceManager.dll System.Resources.Writer.dll System.Runtime.CompilerServices.VisualC.dll System.Runtime.Extensions.dll System.Runtime.Handles.dll System.Runtime.InteropServices.RuntimeInformation.dll System.Runtime.InteropServices.dll System.Runtime.Numerics.dll System.Runtime.Serialization.Formatters.dll System.Runtime.Serialization.Json.dll System.Runtime.Serialization.Primitives.dll System.Runtime.Serialization.Xml.dll System.Runtime.dll System.Security.Claims.dll System.Security.Cryptography.Algorithms.dll System.Security.Cryptography.Csp.dll System.Security.Cryptography.Encoding.dll System.Security.Cryptography.Primitives.dll System.Security.Cryptography.X509Certificates.dll System.Security.Principal.dll System.Security.SecureString.dll System.Text.Encoding.Extensions.dll System.Text.Encoding.dll System.Text.RegularExpressions.dll System.Threading.Overlapped.dll System.Threading.Tasks.Parallel.dll System.Threading.Tasks.dll System.Threading.Thread.dll System.Threading.ThreadPool.dll System.Threading.Timer.dll System.Threading.dll System.ValueTuple.dll System.Xml.ReaderWriter.dll System.Xml.XDocument.dll System.Xml.XPath.XDocument.dll System.Xml.XPath.dll System.Xml.XmlDocument.dll System.Xml.XmlSerializer.dll WPFToolkit.dll WebActivator.dll netstandard.dll"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath APPDIR BafghAutomation.Engine.dll BarcodeWpf.dll Dashboard.exe Dashboard.exe.config EntityFramework.SqlServer.dll EntityFramework.dll FSharp.Core.dll FSharp.Core.resources.dll FSharp.Core.resources.dll_1 FSharp.Core.resources.dll_10 FSharp.Core.resources.dll_11 FSharp.Core.resources.dll_12 FSharp.Core.resources.dll_13 FSharp.Core.resources.dll_2 FSharp.Core.resources.dll_3 FSharp.Core.resources.dll_4 FSharp.Core.resources.dll_5 FSharp.Core.resources.dll_6 FSharp.Core.resources.dll_7 FSharp.Core.resources.dll_8 FSharp.Core.resources.dll_9 FontAwesome.WPF.dll HOMATEC Hardcodet.Wpf.TaskbarNotification.dll Microsoft.Win32.Primitives.dll ProductInformation SQLite.Interop.dll SQLite.Interop.dll_1 System.AppContext.dll System.Collections.Concurrent.dll System.Collections.NonGeneric.dll System.Collections.Specialized.dll System.Collections.dll System.ComponentModel.EventBasedAsync.dll System.ComponentModel.Primitives.dll System.ComponentModel.TypeConverter.dll System.ComponentModel.dll System.Console.dll System.Data.Common.dll System.Data.SQLite.EF6.dll System.Data.SQLite.Linq.dll System.Data.SQLite.dll System.Diagnostics.Contracts.dll System.Diagnostics.Debug.dll System.Diagnostics.FileVersionInfo.dll System.Diagnostics.Process.dll System.Diagnostics.StackTrace.dll System.Diagnostics.TextWriterTraceListener.dll System.Diagnostics.Tools.dll System.Diagnostics.TraceSource.dll System.Diagnostics.Tracing.dll System.Drawing.Primitives.dll System.Dynamic.Runtime.dll System.Globalization.Calendars.dll System.Globalization.Extensions.dll System.Globalization.dll System.IO.Compression.ZipFile.dll System.IO.Compression.dll System.IO.FileSystem.DriveInfo.dll System.IO.FileSystem.Primitives.dll System.IO.FileSystem.Watcher.dll System.IO.FileSystem.dll System.IO.IsolatedStorage.dll System.IO.MemoryMappedFiles.dll System.IO.Pipes.dll System.IO.UnmanagedMemoryStream.dll System.IO.dll System.Linq.Expressions.dll System.Linq.Parallel.dll System.Linq.Queryable.dll System.Linq.dll System.Net.Http.dll System.Net.NameResolution.dll System.Net.NetworkInformation.dll System.Net.Ping.dll System.Net.Primitives.dll System.Net.Requests.dll System.Net.Security.dll System.Net.Sockets.dll System.Net.WebHeaderCollection.dll System.Net.WebSockets.Client.dll System.Net.WebSockets.dll System.ObjectModel.dll System.Reflection.Extensions.dll System.Reflection.Primitives.dll System.Reflection.dll System.Resources.Reader.dll System.Resources.ResourceManager.dll System.Resources.Writer.dll System.Runtime.CompilerServices.VisualC.dll System.Runtime.Extensions.dll System.Runtime.Handles.dll System.Runtime.InteropServices.RuntimeInformation.dll System.Runtime.InteropServices.dll System.Runtime.Numerics.dll System.Runtime.Serialization.Formatters.dll System.Runtime.Serialization.Json.dll System.Runtime.Serialization.Primitives.dll System.Runtime.Serialization.Xml.dll System.Runtime.dll System.Security.Claims.dll System.Security.Cryptography.Algorithms.dll System.Security.Cryptography.Csp.dll System.Security.Cryptography.Encoding.dll System.Security.Cryptography.Primitives.dll System.Security.Cryptography.X509Certificates.dll System.Security.Principal.dll System.Security.SecureString.dll System.Text.Encoding.Extensions.dll System.Text.Encoding.dll System.Text.RegularExpressions.dll System.Threading.Overlapped.dll System.Threading.Tasks.Parallel.dll System.Threading.Tasks.dll System.Threading.Thread.dll System.Threading.ThreadPool.dll System.Threading.Timer.dll System.Threading.dll System.ValueTuple.dll System.Xml.ReaderWriter.dll System.Xml.XDocument.dll System.Xml.XPath.XDocument.dll System.Xml.XPath.dll System.Xml.XmlDocument.dll System.Xml.XmlSerializer.dll WPFToolkit.dll WebActivator.dll netstandard.dll"/>
+    <ROW Feature="TileAssets_DefaultBuild" Title="TileAssets_DefaultBuild" Description="Description" Display="0" Level="1" Directory_="APPDIR" Attributes="0" Options="271" Components="Dashboard.VisualElementsManifest.xml" Builds="DefaultBuild"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="BafghAutomation.Engine.dll" Component_="BafghAutomation.Engine.dll" FileName="BAFGHA~1.DLL|BafghAutomation.Engine.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\BafghAutomation.Engine.dll" SelfReg="false" NextFile="BafghAutomation.Engine.pdb"/>
     <ROW File="BafghAutomation.Engine.pdb" Component_="BafghAutomation.Engine.dll" FileName="BAFGHA~1.PDB|BafghAutomation.Engine.pdb" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\BafghAutomation.Engine.pdb" SelfReg="false" NextFile="BarcodeWpf.dll"/>
     <ROW File="BarcodeWpf.dll" Component_="BarcodeWpf.dll" FileName="BARCOD~1.DLL|BarcodeWpf.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\BarcodeWpf.dll" SelfReg="false" NextFile="FSharp.Core.resources.dll"/>
+    <ROW File="Dashboard.VisualElementsManifest.xml" Component_="Dashboard.VisualElementsManifest.xml" FileName="DASHBO~1.XML|Dashboard.VisualElementsManifest.xml" Attributes="0" SourcePath="&lt;AI_RES&gt;app.VisualElementsManifest.xml" SelfReg="false"/>
     <ROW File="Dashboard.exe" Component_="Dashboard.exe" FileName="DASHBO~1.EXE|Dashboard.exe" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\Dashboard.exe" SelfReg="false" NextFile="Dashboard.exe.config" DigSign="true"/>
     <ROW File="Dashboard.exe.config" Component_="Dashboard.exe.config" FileName="DASHBO~1.CON|Dashboard.exe.config" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\Dashboard.exe.config" SelfReg="false" NextFile="Dashboard.pdb"/>
     <ROW File="Dashboard.pdb" Component_="Dashboard.exe" FileName="DASHBO~1.PDB|Dashboard.pdb" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\Dashboard.pdb" SelfReg="false" NextFile="FSharp.Core.resources.dll_1"/>
@@ -201,7 +209,7 @@
     <ROW File="FSharp.Core.resources.dll_10" Component_="FSharp.Core.resources.dll_10" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\ru\FSharp.Core.resources.dll" SelfReg="false" NextFile="System.AppContext.dll"/>
     <ROW File="FSharp.Core.resources.dll_11" Component_="FSharp.Core.resources.dll_11" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\tr\FSharp.Core.resources.dll" SelfReg="false" NextFile="WebActivator.dll"/>
     <ROW File="FSharp.Core.resources.dll_12" Component_="FSharp.Core.resources.dll_12" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\zh-Hans\FSharp.Core.resources.dll" SelfReg="false" NextFile="FSharp.Core.resources.dll_13"/>
-    <ROW File="FSharp.Core.resources.dll_13" Component_="FSharp.Core.resources.dll_13" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\zh-Hant\FSharp.Core.resources.dll" SelfReg="false"/>
+    <ROW File="FSharp.Core.resources.dll_13" Component_="FSharp.Core.resources.dll_13" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\zh-Hant\FSharp.Core.resources.dll" SelfReg="false" NextFile="Dashboard.VisualElementsManifest.xml"/>
     <ROW File="FSharp.Core.resources.dll_2" Component_="FSharp.Core.resources.dll_2" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\en\FSharp.Core.resources.dll" SelfReg="false" NextFile="EntityFramework.dll"/>
     <ROW File="FSharp.Core.resources.dll_3" Component_="FSharp.Core.resources.dll_3" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\es\FSharp.Core.resources.dll" SelfReg="false" NextFile="FontAwesome.WPF.dll"/>
     <ROW File="FSharp.Core.resources.dll_4" Component_="FSharp.Core.resources.dll_4" FileName="FSHARP~1.DLL|FSharp.Core.resources.dll" Attributes="0" SourcePath="..\src\Dashboard\bin\Release\fr\FSharp.Core.resources.dll" SelfReg="false" NextFile="FSharp.Core.dll"/>
@@ -327,7 +335,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="Homatec Bafgh Automation-[|ProductVersion]" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="Homatec Bafgh Automation-[|ProductVersion]" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" ExtUI="true" UseLargeSchema="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -335,32 +343,62 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
-    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
-    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
-    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
-    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;azure\fragments\SequenceDialogs.aip"/>
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
-    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;azure\fragments\UI.aip"/>
     <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
-    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
-    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
-    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlAttributeComponent">
+    <ROW XmlAttribute="BackgroundColor" XmlElement="VisualElements" Name="BackgroundColor" Flags="14" Order="0" Value="#2d2d30"/>
+    <ROW XmlAttribute="Executable" XmlElement="VisualElements" Name="Executable" Flags="14" Order="0" FileId="Dashboard.exe"/>
+    <ROW XmlAttribute="ForegroundText" XmlElement="VisualElements" Name="ForegroundText" Flags="14" Order="0" Value="light"/>
+    <ROW XmlAttribute="ShowNameOnSquare150x150Logo" XmlElement="VisualElements" Name="ShowNameOnSquare150x150Logo" Flags="14" Order="0" Value="off"/>
+    <ROW XmlAttribute="xmlnsxsi" XmlElement="Application" Name="xmlns:xsi" Flags="14" Order="0" Value="http://www.w3.org/2001/XMLSchema-instance"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">
+    <ROW XmlElement="Application" Name="Application" Order="0" Flags="0" Type="53"/>
+    <ROW XmlElement="VisualElements" ParentElement="Application" Name="VisualElements" Order="0" Flags="0" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlFileComponent">
+    <ROW XmlFile="Dashboard.VisualElementsManifest.xm" FileName="Dashboard.VisualElementsManifest.xml" RootElement="Application" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_DeleteRLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_ExtractFiles" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
+    <ROW Action="AI_ExtractLzma" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiAppSearchComponent">
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_LM" Builds="DefaultBuild"/>
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_CU" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiConditionComponent">
+    <ROW Feature_="TileAssets_DefaultBuild" Level="4" Condition="VersionNT &lt; 603"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
     <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
     <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
-    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
     <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
     <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
     <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
     <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
     <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
@@ -370,23 +408,45 @@
     <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
     <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
     <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
-    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="HOMATEC_Dir" Component_="HOMATEC" ManualDelete="false"/>
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DATA_SETTER" Type="51" Source="AI_ExtractFiles" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteLzma" Type="1025" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
+    <ROW Action="AI_DeleteRCadLzma" Type="51" Source="AI_DeleteRLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_EstimateExtractFiles" Type="1" Source="Prereq.dll" Target="EstimateExtractFiles"/>
+    <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_ExtractFiles" Type="1025" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
+    <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
+    <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_PinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="PinShortcuts"/>
+    <ROW Action="AI_PinToStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="PinToStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_PinToTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="PinToTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_PrepareShortcutFlags" Type="1" Source="ShortcutFlags.dll" Target="PrepareActionData"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_RunFinishActions" Type="1" Source="aicustact.dll" Target="RunFinishActions" WithoutSeq="true"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_UnpinFromStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinFromTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="UnpinShortcuts"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -402,31 +462,54 @@
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
     <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="199" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteRCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="198" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="197" Builds="DefaultBuild"/>
+    <ROW Action="AI_FindExeLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="196" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1549" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1548" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6599" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractFiles" Sequence="3998" Builds="DefaultBuild"/>
+    <ROW Action="AI_DATA_SETTER" Sequence="3997"/>
+    <ROW Action="AI_EstimateExtractFiles" Sequence="3999" Builds="DefaultBuild"/>
+    <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_PinShortcuts" Condition="(VersionNT &gt; 600) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="6499"/>
+    <ROW Action="AI_UnpinShortcuts" Condition="(VersionNT &gt; 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="3199"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
     <ROW Action="AI_DpiContentScale" Sequence="52"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
+    <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+    <ROW Signature_="AI_EXE_PATH_LM" Root="2" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="AI_ExePath" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Value="[AI_SETUPEXEPATH]" Component_="AI_ExePath"/>
     <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="BafghAutomation" Directory_="StartupFolder" Name="BAFGHA~1|Bafgh Automation" Component_="Dashboard.exe" Target="[#Dashboard.exe]" Hotkey="0" Icon_="Dashboard.exe" IconIndex="0" ShowCmd="1" WkDir="Release_Dir"/>
-    <ROW Shortcut="BafghAutomation_1" Directory_="HOMATEC_Dir" Name="BAFGHA~1|Bafgh Automation" Component_="Dashboard.exe" Target="[#Dashboard.exe]" Hotkey="0" Icon_="Dashboard.exe" IconIndex="0" ShowCmd="1" WkDir="Release_Dir"/>
+    <ROW Shortcut="BafghAutomation_1" Directory_="HOMATEC_Dir" Name="BAFGHA~1|Bafgh Automation" Component_="Dashboard.exe" Target="[#Dashboard.exe]" Hotkey="0" Icon_="Dashboard.exe" IconIndex="0" ShowCmd="1" WkDir="Release_Dir" CustomFlags="4"/>
     <ROW Shortcut="BafghAutomation_2" Directory_="DesktopFolder" Name="BAFGHA~1|Bafgh Automation" Component_="Dashboard.exe" Target="[#Dashboard.exe]" Hotkey="0" Icon_="Dashboard.exe" IconIndex="0" ShowCmd="1" WkDir="Release_Dir"/>
     <ROW Shortcut="Uninstall" Directory_="Release_Dir" Name="UNINST~1|Uninstall" Component_="System.Threading.dll" Target="[SystemFolder]msiexec.exe" Arguments="/x [ProductCode]" Hotkey="0" Icon_="SystemFoldermsiexec.exe" IconIndex="0" ShowCmd="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
-    <ATTRIBUTE name="UsedTheme" value="classic"/>
+    <ATTRIBUTE name="UsedTheme" value="azure"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
