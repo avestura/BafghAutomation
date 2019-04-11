@@ -260,7 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-/Setup Files/
-/Setup Project/Homatec Bafgh Automation-cache
-/Setup Project/Homatec Bafgh Automation-SetupFiles
-/Setup Project/Homatec Bafgh Automation.back.aip
+/setup/Homatec Bafgh Automation-cache
+/setup/Homatec Bafgh Automation-SetupFiles
+/setup/Homatec Bafgh Automation.back*
