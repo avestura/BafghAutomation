@@ -14,3 +14,34 @@ bad codes in C#).
 Forgive the code.
 
 Best regards, the project creator.
+
+# Docs
+
+### 3rd-Party Input Format
+Applicaton inputs a file to read from a 3rd-party app with this format:
+
+```
+A,B,C,D,E
+```
+where:
+```
+A: PackNumber
+B: Date (in PersianCalendar format)
+C: Time
+D: Weight
+E: Item-code Id in `Goods` database
+```
+Example:
+```
+12345689,13980121,1210,1260,7080130002
+```
+
+**Configuration Address**
+
+`Config.PackDetailsFileAddress`
+
+**Parsing Function**
+
+File: `App.xaml.cs`
+
+Function: `RecivePackDetailsDataAsync : unit -> Task`
