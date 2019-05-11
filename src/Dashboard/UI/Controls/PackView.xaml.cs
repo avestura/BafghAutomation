@@ -191,6 +191,7 @@ namespace Dashboard.UI.Controls
                 {
                     printDialog.PrintDocument(doc.DocumentPaginator, "HOMATEC");
                     IsPrinted = true;
+                    NumberOfPrints++;
                     var item = DataBaseHelper.Entities.Packs.Find(Id);
                     item.IsPrinted = true;
                     item.NumberOfPrints++;
