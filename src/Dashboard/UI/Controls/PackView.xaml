@@ -33,7 +33,7 @@
             Visibility="Collapsed" />
         <Border
             Padding="0,5"
-            Background="#FFF0F0F0"
+            Background="{Binding ElementName=control, Path=BackgroundBrush}"
             BorderBrush="Gray"
             BorderThickness="2,0,0,0">
             <Grid>

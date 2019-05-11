@@ -82,15 +82,35 @@ namespace Dashboard.UI.Controls
             DependencyProperty.Register("Length", typeof(string), typeof(PackView), null);
 
 
+        private static Color BackgroundDefaultColor => (Color)ColorConverter.ConvertFromString("#FFF0F0F0");
+        private static Color BackgroundPrintedColor => (Color)ColorConverter.ConvertFromString("#FFFFC5C5");
+        private static SolidColorBrush BackgroundDefaultBrush => new SolidColorBrush(BackgroundDefaultColor);
+        private static SolidColorBrush BackgroundPrintedBrush => new SolidColorBrush(BackgroundPrintedColor);
 
         public bool IsPrinted
         {
             get => (bool)GetValue(IsPrintedProperty);
-            set => SetValue(IsPrintedProperty, value);
+            set
+            {
+                SetValue(IsPrintedProperty, value);
+                if (value)
+                {
+                    SetValue(BackgroundBrushProperty, BackgroundPrintedBrush);
+                }
+                else
+                {
+                    SetValue(BackgroundBrushProperty, BackgroundDefaultBrush);
+                }
+            }
         }
 
         public static readonly DependencyProperty IsPrintedProperty =
             DependencyProperty.Register("IsPrinted", typeof(bool), typeof(PackView), new PropertyMetadata(false));
+
+        public SolidColorBrush BackgroundBrush => (SolidColorBrush)GetValue(BackgroundBrushProperty);
+
+        public static readonly DependencyProperty BackgroundBrushProperty =
+            DependencyProperty.Register("BackgroundBrush", typeof(SolidColorBrush), typeof(PackView), new PropertyMetadata(BackgroundDefaultBrush));
 
         public PackView(
             int id,
