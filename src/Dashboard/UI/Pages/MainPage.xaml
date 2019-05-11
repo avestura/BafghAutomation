@@ -44,6 +44,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="1.5*" />
+                            <RowDefinition Height="7" />
                             <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Margin="15">
@@ -246,8 +247,19 @@
                                 </ScrollViewer>
                             </Grid>
                         </Grid>
-
-                        <Grid Grid.Row="2" Margin="15,0,15,15">
+                        <GridSplitter
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch" >
+                            <GridSplitter.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                    <GradientStop Color="#FFF0F0F0" Offset="0.495"/>
+                                </LinearGradientBrush>
+                            </GridSplitter.Background>
+                        </GridSplitter>
+                        <Grid Grid.Row="3" Margin="15,0,15,15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />

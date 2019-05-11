@@ -12,8 +12,8 @@ namespace Dashboard.UI.Controls
 {
     public class CustomPrintDocumentViewer : DocumentViewer
     {
-
         public event EventHandler<PrintCompletedEventArgs> PrintCompleted;
+
         public bool DocumentReversed { get; set; }
 
         public bool DocumentBackgroundRemoved { get; set; }
