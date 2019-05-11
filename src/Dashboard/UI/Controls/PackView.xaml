@@ -10,7 +10,7 @@
     x:Name="control"
     Height="100"
     d:DesignHeight="100"
-    d:DesignWidth="400"
+    d:DesignWidth="600"
     mc:Ignorable="d">
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
@@ -85,6 +85,8 @@
                             Foreground="#FF0C6E54"
                             ToolTip="You have already printed this pack item.">
                             Already Printed
+                            <TextBlock FontWeight="Bold" Text="{Binding NumberOfPrints, ElementName=control}" />
+                            time(s)
                         </TextBlock>
                     </StackPanel>
                     <Button BorderThickness="0" Click="Preview_Click">

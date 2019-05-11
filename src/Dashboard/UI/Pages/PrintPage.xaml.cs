@@ -50,6 +50,7 @@ namespace Dashboard.UI.Pages
                 if(DataBaseHelper.Entities.Packs.Find(id) is Pack p)
                 {
                     p.IsPrinted = true;
+                    p.NumberOfPrints++;
                     DataBaseHelper.Entities.SaveChanges();
                     App.CurrentApp.MainPage.PackViewRefreshRequest();
                 }

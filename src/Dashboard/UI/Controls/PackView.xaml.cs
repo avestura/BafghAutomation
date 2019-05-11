@@ -107,6 +107,17 @@ namespace Dashboard.UI.Controls
         public static readonly DependencyProperty IsPrintedProperty =
             DependencyProperty.Register("IsPrinted", typeof(bool), typeof(PackView), new PropertyMetadata(false));
 
+
+
+        public int NumberOfPrints
+        {
+            get => (int)GetValue(NumberOfPrintsProperty);
+            set => SetValue(NumberOfPrintsProperty, value);
+        }
+
+        public static readonly DependencyProperty NumberOfPrintsProperty =
+            DependencyProperty.Register("NumberOfPrints", typeof(int), typeof(PackView), new PropertyMetadata(0));
+
         public SolidColorBrush BackgroundBrush => (SolidColorBrush)GetValue(BackgroundBrushProperty);
 
         public static readonly DependencyProperty BackgroundBrushProperty =
@@ -121,7 +132,8 @@ namespace Dashboard.UI.Controls
             string Length = "",
             string Diameter = "",
             string Grade = "",
-            bool IsPrinted = false)
+            bool IsPrinted = false,
+            int NumberOfPrints = 0)
         {
             InitializeComponent();
 
@@ -134,6 +146,7 @@ namespace Dashboard.UI.Controls
             this.Grade = Grade;
             this.Length = Length;
             this.IsPrinted = IsPrinted;
+            this.NumberOfPrints = NumberOfPrints;
         }
 
         private void Preview_Click(object sender, RoutedEventArgs e)
@@ -178,7 +191,9 @@ namespace Dashboard.UI.Controls
                 {
                     printDialog.PrintDocument(doc.DocumentPaginator, "HOMATEC");
                     IsPrinted = true;
-                    DataBaseHelper.Entities.Packs.Find(Id).IsPrinted = true;
+                    var item = DataBaseHelper.Entities.Packs.Find(Id);
+                    item.IsPrinted = true;
+                    item.NumberOfPrints++;
                     DataBaseHelper.Entities.SaveChanges();
                 }
             }

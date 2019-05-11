@@ -136,7 +136,8 @@ namespace Dashboard
                             time: timeString,
                             date: dateString,
                             packNo: packNumber,
-                            isPrinted: false));
+                            isPrinted: false,
+                            numberOfPrints: 0));
 
                         DataBaseHelper.Entities.SaveChanges();
 

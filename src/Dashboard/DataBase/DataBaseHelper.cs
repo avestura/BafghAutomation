@@ -131,7 +131,8 @@ namespace Dashboard.DataBase
                         Length: itemCodeInfo.Length,
                         Diameter: itemCodeInfo.Diameter,
                         Grade: itemCodeInfo.SignId,
-                        IsPrinted: item.IsPrinted)
+                        IsPrinted: item.IsPrinted,
+                        NumberOfPrints: item.NumberOfPrints)
                     {
                         Margin = new Thickness(10,10,10,5)
                     }
