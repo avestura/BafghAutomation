@@ -83,7 +83,7 @@ namespace Dashboard.UI.Controls
 
 
         private static Color BackgroundDefaultColor => (Color)ColorConverter.ConvertFromString("#FFF0F0F0");
-        private static Color BackgroundPrintedColor => (Color)ColorConverter.ConvertFromString("#FFFFC5C5");
+        private static Color BackgroundPrintedColor => (Color)ColorConverter.ConvertFromString("#FF9AD19A");
         private static SolidColorBrush BackgroundDefaultBrush => new SolidColorBrush(BackgroundDefaultColor);
         private static SolidColorBrush BackgroundPrintedBrush => new SolidColorBrush(BackgroundPrintedColor);
 
