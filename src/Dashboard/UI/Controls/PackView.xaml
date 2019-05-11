@@ -80,12 +80,17 @@
                             Icon="Print" />
                         <TextBlock
                             Margin="2,0"
+                            VerticalAlignment="Center"
                             Cursor="Help"
                             FontSize="10"
                             Foreground="#FF0C6E54"
                             ToolTip="You have already printed this pack item.">
                             Already Printed
-                            <TextBlock FontWeight="Bold" Text="{Binding NumberOfPrints, ElementName=control}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Text="{Binding NumberOfPrints, ElementName=control}" />
                             time(s)
                         </TextBlock>
                     </StackPanel>
